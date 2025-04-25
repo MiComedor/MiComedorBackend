@@ -4,6 +4,7 @@ package pe.edu.upc.micomedor.controllers;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.micomedor.dtos.BeneficiaryDTO;
 import pe.edu.upc.micomedor.dtos.ProductTypeDTO;
 import pe.edu.upc.micomedor.entities.ProductType;
 import pe.edu.upc.micomedor.servicesInterfaces.IProductTypeService;
@@ -38,5 +39,16 @@ public class ProductTypeController {
         iD.delete(id);
     }
 
-
+    @PutMapping
+    public void update(@RequestBody ProductTypeDTO dto) {
+        ModelMapper m = new ModelMapper();
+        ProductType u = m.map(dto, ProductType.class);
+        iD.insert(u);
+    }
+    @GetMapping("/{id}")
+    public ProductTypeDTO listById(@PathVariable("id") int id) {
+        ModelMapper m = new ModelMapper();
+        ProductType productType = iD.listId(id);
+        return m.map(productType, ProductTypeDTO.class);
+    }
 }

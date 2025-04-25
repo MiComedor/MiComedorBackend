@@ -29,7 +29,7 @@ public class BeneficiaryServiceImplement implements IBeneficiaryService {
         return bR.findAll();
     }
     @Override
-    public void update(Beneficiary category) {
-        bR.save(category);
+    public void update(Beneficiary beneficiary) {
+        bR.save(beneficiary);
     }
 }

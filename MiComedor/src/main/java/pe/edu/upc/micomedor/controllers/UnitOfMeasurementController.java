@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.micomedor.dtos.BeneficiaryDTO;
 import pe.edu.upc.micomedor.dtos.UnitOfMeasurementDTO;
+import pe.edu.upc.micomedor.entities.Beneficiary;
 import pe.edu.upc.micomedor.entities.UnitOfMeasurement;
 import pe.edu.upc.micomedor.servicesInterfaces.IUnitOfMeasurementService;
 
@@ -37,7 +38,7 @@ public class UnitOfMeasurementController {
     public void eliminar(@PathVariable("id") Integer id){ uomS.delete(id);}
 
     @PutMapping
-    public void update(@RequestBody BeneficiaryDTO dto) {
+    public void update(@RequestBody UnitOfMeasurementDTO dto) {
         ModelMapper m = new ModelMapper();
         UnitOfMeasurement u = m.map(dto, UnitOfMeasurement.class);
         uomS.insert(u);

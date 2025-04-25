@@ -6,12 +6,8 @@ import java.util.List;
 
 public interface IProductTypeService {
     public void insert(ProductType pt);
-
     public List<ProductType> list();
-
     public ProductType listId(int id);
-
     public void delete(int id);
-
-
+    public void update(ProductType productType);
 }
