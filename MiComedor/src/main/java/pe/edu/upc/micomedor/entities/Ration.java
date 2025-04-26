@@ -16,13 +16,13 @@ public class Ration {
     @Column(name = "price", nullable = false)
     private double price;
     @ManyToOne
-    @JoinColumn(name = "idUser")
+    @JoinColumn(name = "User_id")
     private Users users;
     @ManyToOne
-    @JoinColumn(name = "idRationType")
+    @JoinColumn(name = "RationType_id")
     private RationType rationType;
     @ManyToOne
-    @JoinColumn(name = "idBeneficiary")
+    @JoinColumn(name = "Beneficiary_id")
     private Beneficiary beneficiary;
 
 

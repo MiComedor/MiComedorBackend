@@ -19,10 +19,10 @@ public class TaskCoordination {
     @Column(name = "timeTask", nullable = false)
     private LocalTime timeTask;
     @ManyToOne
-    @JoinColumn(name = "idUser")
+    @JoinColumn(name = "User_id")
     private Users users;
     @ManyToOne
-    @JoinColumn(name = "idTypeOfTask")
+    @JoinColumn(name = "TypeOfTask_id")
     private TypeOfTask typeOfTask;
 
     public TaskCoordination() {
