@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 
 @Entity
-@Table(name="UnitOfMeasurementDTO")
+@Table(name="UnitOfMeasurement")
 public class UnitOfMeasurement implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
