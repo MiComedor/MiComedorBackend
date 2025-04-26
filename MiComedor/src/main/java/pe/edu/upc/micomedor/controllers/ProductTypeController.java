@@ -19,9 +19,9 @@ public class ProductTypeController {
     private IProductTypeService iD;
 
     @PostMapping
-    public void insert(@RequestBody ProductTypeDTO DeliveryTypeDTO) {
+    public void insert(@RequestBody ProductTypeDTO ProductTypeDTO) {
         ModelMapper m = new ModelMapper();
-        ProductType p = m.map(DeliveryTypeDTO, ProductType.class);
+        ProductType p = m.map(ProductTypeDTO, ProductType.class);
         iD.insert(p);
     }
 
