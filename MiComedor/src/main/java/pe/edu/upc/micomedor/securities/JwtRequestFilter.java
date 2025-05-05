@@ -26,6 +26,15 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
+        String path = request.getServletPath();
+        System.out.println("RUTA RECIBIDA: " + path);
+
+        if (path.equals("/users") || path.equals("/authenticate")) {
+            System.out.println("EXCLUYENDO del filtro JWT: " + path);
+            chain.doFilter(request, response);
+            return;
+        }
+
         final String requestTokenHeader = request.getHeader("Authorization");
         String username = null;
         String jwtToken = null;
@@ -41,6 +50,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         } else {
             logger.warn("JWT Token no inicia con la palabra Bearer");
             System.out.println(requestTokenHeader);
+            System.out.println("Token recibido en header: " + requestTokenHeader);
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
