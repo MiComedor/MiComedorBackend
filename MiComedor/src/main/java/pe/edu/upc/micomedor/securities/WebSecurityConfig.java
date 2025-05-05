@@ -72,9 +72,7 @@ public class WebSecurityConfig {
                                 "/swagger-ui.html",
                                 "/swagger-ui/index.html#",
                                 "/authenticate",
-                                "/users/**",
-                                "/users/*",
-                                "/users"
+                                "/users/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

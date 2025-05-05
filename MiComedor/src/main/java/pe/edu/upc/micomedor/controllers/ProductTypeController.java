@@ -26,7 +26,6 @@ public class ProductTypeController {
     }
 
     @GetMapping
-    //@PreAuthorize("hasAnyAuthority('USUARIO','EMPRENDIMIENTO', 'ADMIN')")
     public List<ProductTypeDTO> list() {
         return iD.list().stream().map(y -> {
             ModelMapper m = new ModelMapper();
