@@ -32,4 +32,11 @@ public class NoteServiceImplement implements INoteService {
     public void update(Note budget) {
         nR.save(budget);
     }
+
+    @Override
+    public List<Note> findNotasByUserId(int idUser) {
+        return nR.findNotasByUserId(idUser);
+    }
+
+
 }

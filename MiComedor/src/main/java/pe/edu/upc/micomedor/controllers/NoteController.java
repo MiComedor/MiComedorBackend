@@ -3,10 +3,12 @@ package pe.edu.upc.micomedor.controllers;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.micomedor.dtos.NoteByUserDTO;
 import pe.edu.upc.micomedor.dtos.NoteDTO;
 import pe.edu.upc.micomedor.entities.Note;
 import pe.edu.upc.micomedor.servicesInterfaces.INoteService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,4 +49,21 @@ public class NoteController {
         Note note = nS.listId(id);
         return m.map(note, NoteDTO.class);
     }
+
+    @GetMapping("/notaPorUsuario/{idUser}")
+    public List<NoteByUserDTO> obtenerNotasPorUsuario(@PathVariable int idUser) {
+        List<Note> notas = nS.findNotasByUserId(idUser);
+        List<NoteByUserDTO> resultado = new ArrayList<>();
+
+        for (Note nota : notas) {
+            NoteByUserDTO dto = new NoteByUserDTO();
+            dto.setNoteTextByUser(nota.getNoteText()); // asumiendo que el campo se llama así
+            resultado.add(dto);
+        }
+
+        return resultado;
+    }
+
+
+
 }
