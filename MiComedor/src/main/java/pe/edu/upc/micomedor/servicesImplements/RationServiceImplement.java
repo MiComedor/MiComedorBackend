@@ -2,6 +2,7 @@ package pe.edu.upc.micomedor.servicesImplements;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pe.edu.upc.micomedor.entities.Note;
 import pe.edu.upc.micomedor.entities.Ration;
 import pe.edu.upc.micomedor.repositories.IRationRepository;
 import pe.edu.upc.micomedor.servicesInterfaces.IRationService;
@@ -31,5 +32,10 @@ public class RationServiceImplement  implements IRationService {
     @Override
     public void update(Ration ration) {
         rR.save(ration);
+    }
+
+    @Override
+    public List<Ration> findRationByUserId(int idUser) {
+        return rR.findRationByUserId(idUser);
     }
 }

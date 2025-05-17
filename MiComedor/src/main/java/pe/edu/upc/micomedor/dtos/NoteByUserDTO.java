@@ -1,7 +1,7 @@
 package pe.edu.upc.micomedor.dtos;
 
 public class NoteByUserDTO {
-    private int idNote;               // <-- ID necesario para editar/eliminar
+    private int idNote;
     private String noteTextByUser;
 
     // Getters y Setters

@@ -60,7 +60,7 @@ public class NoteController {
         for (Note nota : notas) {
             NoteByUserDTO dto = new NoteByUserDTO();
             dto.setIdNote(nota.getIdNote()); // agrega el ID
-            dto.setNoteTextByUser(nota.getNoteText()); // asumiendo que el campo se llama así
+            dto.setNoteTextByUser(nota.getNoteText());
             resultado.add(dto);
         }
 

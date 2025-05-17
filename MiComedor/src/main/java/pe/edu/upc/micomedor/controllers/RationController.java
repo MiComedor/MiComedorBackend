@@ -3,12 +3,14 @@ package pe.edu.upc.micomedor.controllers;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.micomedor.dtos.RationByUserIdDTO;
 import pe.edu.upc.micomedor.dtos.RationDTO;
 import pe.edu.upc.micomedor.entities.Ration;
 import pe.edu.upc.micomedor.servicesInterfaces.IRationService;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/ration")
@@ -47,4 +49,22 @@ public class RationController {
         Ration ration = rS.listId(id);
         return m.map(ration, RationDTO.class);
     }
+    @GetMapping("/racionPorUsuario/{idUser}")
+    public List<RationByUserIdDTO> obtenerListaRacionesPorUsuario(@PathVariable int idUser) {
+        List<Ration> rations = rS.findRationByUserId(idUser);
+        List<RationByUserIdDTO> resultado = new ArrayList<>();
+
+        for (Ration ration : rations) {
+        RationByUserIdDTO dto = new RationByUserIdDTO();
+            dto.setIdRation(ration.getIdRation());
+            dto.setDate(ration.getDate());
+            dto.setNameRationType(ration.getRationType().getNameRationType());
+            dto.setDniBenefeciary(ration.getBeneficiary().getDniBenefeciary());
+            dto.setPrice(ration.getPrice());
+            resultado.add(dto);
+        }
+
+        return resultado;
+    }
+
 }
