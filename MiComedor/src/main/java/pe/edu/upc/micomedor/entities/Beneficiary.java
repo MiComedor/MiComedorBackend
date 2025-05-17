@@ -18,16 +18,21 @@ public class Beneficiary implements Serializable {
     private int ageBeneficiary;
     @Column(name = "observationsBeneficiary", nullable = false, length = 300)
     private String observationsBeneficiary;
+    @ManyToOne
+    @JoinColumn(name = "User_id")
+    private Users users;
     public Beneficiary() {
     }
 
-    public Beneficiary(int idBeneficiary, int dniBenefeciary, String fullnameBenefeciary, int ageBeneficiary, String observationsBeneficiary) {
+    public Beneficiary(int idBeneficiary, int dniBenefeciary, String fullnameBenefeciary, int ageBeneficiary, String observationsBeneficiary, Users users) {
         this.idBeneficiary = idBeneficiary;
         this.dniBenefeciary = dniBenefeciary;
         this.fullnameBenefeciary = fullnameBenefeciary;
         this.ageBeneficiary = ageBeneficiary;
         this.observationsBeneficiary = observationsBeneficiary;
+        this.users = users;
     }
+
     public int getIdBeneficiary() {
         return idBeneficiary;
     }
@@ -66,5 +71,13 @@ public class Beneficiary implements Serializable {
 
     public void setObservationsBeneficiary(String observationsBeneficiary) {
         this.observationsBeneficiary = observationsBeneficiary;
+    }
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
     }
 }

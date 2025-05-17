@@ -32,4 +32,10 @@ public class BeneficiaryServiceImplement implements IBeneficiaryService {
     public void update(Beneficiary beneficiary) {
         bR.save(beneficiary);
     }
+
+    @Override
+    public List<Beneficiary> findBeneficiaryByUserId(int idUser) {
+        return bR.findBeneficiaryByUserId(idUser);
+    }
+
 }

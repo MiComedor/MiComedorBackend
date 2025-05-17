@@ -1,11 +1,14 @@
 package pe.edu.upc.micomedor.dtos;
 
+import pe.edu.upc.micomedor.entities.Users;
+
 public class BeneficiaryDTO {
     private int idBeneficiary;
     private int dniBenefeciary;
     private String fullnameBenefeciary;
     private int ageBeneficiary;
     private String observationsBeneficiary;
+    private Users users;
 
     public int getIdBeneficiary() {
         return idBeneficiary;
@@ -45,5 +48,13 @@ public class BeneficiaryDTO {
 
     public void setObservationsBeneficiary(String observationsBeneficiary) {
         this.observationsBeneficiary = observationsBeneficiary;
+    }
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
     }
 }
