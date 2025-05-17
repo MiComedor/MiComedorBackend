@@ -1,8 +1,18 @@
 package pe.edu.upc.micomedor.dtos;
 
-import pe.edu.upc.micomedor.entities.Users;
-
 public class NoteByUserDTO {
+    private int idNote;               // <-- ID necesario para editar/eliminar
+    private String noteTextByUser;
+
+    // Getters y Setters
+    public int getIdNote() {
+        return idNote;
+    }
+
+    public void setIdNote(int idNote) {
+        this.idNote = idNote;
+    }
+
     public String getNoteTextByUser() {
         return noteTextByUser;
     }
@@ -10,6 +20,4 @@ public class NoteByUserDTO {
     public void setNoteTextByUser(String noteTextByUser) {
         this.noteTextByUser = noteTextByUser;
     }
-
-    private String noteTextByUser;
 }

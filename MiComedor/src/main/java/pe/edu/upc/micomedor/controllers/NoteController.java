@@ -36,8 +36,9 @@ public class NoteController {
     @DeleteMapping("/{id}")
     public void eliminar(@PathVariable("id") Integer id){ nS.delete(id);}
 
-    @PutMapping
-    public void update(@RequestBody NoteDTO dto) {
+    @PutMapping("/{id}")
+    public void update(@PathVariable("id") int id, @RequestBody NoteDTO dto) {
+        dto.setIdNote(id);
         ModelMapper m = new ModelMapper();
         Note n = m.map(dto, Note.class);
         nS.insert(n);
@@ -50,6 +51,7 @@ public class NoteController {
         return m.map(note, NoteDTO.class);
     }
 
+
     @GetMapping("/notaPorUsuario/{idUser}")
     public List<NoteByUserDTO> obtenerNotasPorUsuario(@PathVariable int idUser) {
         List<Note> notas = nS.findNotasByUserId(idUser);
@@ -57,6 +59,7 @@ public class NoteController {
 
         for (Note nota : notas) {
             NoteByUserDTO dto = new NoteByUserDTO();
+            dto.setIdNote(nota.getIdNote()); // agrega el ID
             dto.setNoteTextByUser(nota.getNoteText()); // asumiendo que el campo se llama así
             resultado.add(dto);
         }
@@ -67,3 +70,6 @@ public class NoteController {
 
 
 }
+
+
+
