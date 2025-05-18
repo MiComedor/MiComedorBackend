@@ -21,7 +21,7 @@ public class DataLoader {
     public void init() {
         if (uomRepo.count() == 0) {
             uomRepo.save(new UnitOfMeasurement(0, "Kilogramos", "Kg"));
-            uomRepo.save(new UnitOfMeasurement(0, "Litros", "Lt"));
+            uomRepo.save(new UnitOfMeasurement(0, "Litros", "Lts"));
             uomRepo.save(new UnitOfMeasurement(0, "Unidades", "Ud"));
         }
 
