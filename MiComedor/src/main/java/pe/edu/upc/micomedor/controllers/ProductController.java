@@ -10,6 +10,7 @@ import pe.edu.upc.micomedor.entities.UnitOfMeasurement;
 import pe.edu.upc.micomedor.entities.Users;
 import pe.edu.upc.micomedor.servicesInterfaces.IProductService;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,17 +26,29 @@ public class ProductController {
         p.setDescriptionProduct(productDTO.getDescriptionProduct());
         p.setAmountProduct(productDTO.getAmountProduct());
 
+        // Asociar tipo de producto
         ProductType pt = new ProductType();
         pt.setIdProductType(productDTO.getProductType_id());
         p.setProductType(pt);
 
+        // Asociar unidad de medida
         UnitOfMeasurement uom = new UnitOfMeasurement();
         uom.setIdUnitOfMeasurement(productDTO.getUnitOfMeasurement_id());
         p.setUnitOfMeasurement(uom);
 
+        // Asociar usuario
         Users u = new Users();
-        u.setIdUser(productDTO.getUser_id()); // ajusta según cómo se llama el campo en `Users`
+        u.setIdUser(productDTO.getUser_id());
         p.setUsers(u);
+
+        // ✅ Lógica: solo guardar fecha si es PERECIBLE (id == 1)
+        if (productDTO.getProductType_id() == 1 && productDTO.getExpirationDate() != null && !productDTO.getExpirationDate().isEmpty()) {
+            p.setExpirationDate(LocalDate.parse(productDTO.getExpirationDate()));
+        } else {
+            p.setExpirationDate(null);
+        }
+
+
 
         pS.insert(p);
     }
