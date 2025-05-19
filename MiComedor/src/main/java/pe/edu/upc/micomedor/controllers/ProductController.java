@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.micomedor.dtos.ProductDTO;
 import pe.edu.upc.micomedor.entities.Product;
+import pe.edu.upc.micomedor.entities.ProductType;
+import pe.edu.upc.micomedor.entities.UnitOfMeasurement;
+import pe.edu.upc.micomedor.entities.Users;
 import pe.edu.upc.micomedor.servicesInterfaces.IProductService;
 
 import java.util.List;
@@ -18,8 +21,22 @@ public class ProductController {
 
     @PostMapping
     public void insertar(@RequestBody ProductDTO productDTO){
-        ModelMapper m=new ModelMapper();
-        Product p=m.map(productDTO, Product.class);
+        Product p = new Product();
+        p.setDescriptionProduct(productDTO.getDescriptionProduct());
+        p.setAmountProduct(productDTO.getAmountProduct());
+
+        ProductType pt = new ProductType();
+        pt.setIdProductType(productDTO.getProductType_id());
+        p.setProductType(pt);
+
+        UnitOfMeasurement uom = new UnitOfMeasurement();
+        uom.setIdUnitOfMeasurement(productDTO.getUnitOfMeasurement_id());
+        p.setUnitOfMeasurement(uom);
+
+        Users u = new Users();
+        u.setIdUser(productDTO.getUser_id()); // ajusta según cómo se llama el campo en `Users`
+        p.setUsers(u);
+
         pS.insert(p);
     }
 

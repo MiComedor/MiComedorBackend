@@ -8,9 +8,33 @@ public class ProductDTO {
     private int idProduct;
     private String descriptionProduct;
     private float amountProduct;
-    private ProductType productType;
-    private UnitOfMeasurement unitOfMeasurement;
-    private Users users;
+    private int productType_id;
+    private int unitOfMeasurement_id;
+    private int user_id;
+
+    public int getProductType_id() {
+        return productType_id;
+    }
+
+    public void setProductType_id(int productType_id) {
+        this.productType_id = productType_id;
+    }
+
+    public int getUnitOfMeasurement_id() {
+        return unitOfMeasurement_id;
+    }
+
+    public void setUnitOfMeasurement_id(int unitOfMeasurement_id) {
+        this.unitOfMeasurement_id = unitOfMeasurement_id;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
 
     public int getIdProduct() {
         return idProduct;
@@ -36,27 +60,5 @@ public class ProductDTO {
         this.amountProduct = amountProduct;
     }
 
-    public ProductType getProductType() {
-        return productType;
-    }
 
-    public void setProductType(ProductType productType) {
-        this.productType = productType;
-    }
-
-    public UnitOfMeasurement getUnitOfMeasurement() {
-        return unitOfMeasurement;
-    }
-
-    public void setUnitOfMeasurement(UnitOfMeasurement unitOfMeasurement) {
-        this.unitOfMeasurement = unitOfMeasurement;
-    }
-
-    public Users getUsers() {
-        return users;
-    }
-
-    public void setUsers(Users users) {
-        this.users = users;
-    }
 }
