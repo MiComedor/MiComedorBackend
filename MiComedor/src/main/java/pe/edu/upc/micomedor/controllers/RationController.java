@@ -36,8 +36,9 @@ public class RationController {
     @DeleteMapping("/{id}")
     public void eliminar(@PathVariable("id") Integer id){ rS.delete(id);}
 
-    @PutMapping
-    public void update(@RequestBody RationDTO dto) {
+    @PutMapping("/{id}")
+    public void update(@PathVariable("id") int id,@RequestBody RationDTO dto) {
+        dto.setIdRation(id);
         ModelMapper m = new ModelMapper();
         Ration r = m.map(dto, Ration.class);
         rS.insert(r);

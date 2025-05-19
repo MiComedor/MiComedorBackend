@@ -4,8 +4,10 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pe.edu.upc.micomedor.entities.ProductType;
+import pe.edu.upc.micomedor.entities.RationType;
 import pe.edu.upc.micomedor.entities.UnitOfMeasurement;
 import pe.edu.upc.micomedor.repositories.IProductTypeRepository;
+import pe.edu.upc.micomedor.repositories.IRationTypeRepository;
 import pe.edu.upc.micomedor.repositories.IUnitOfMeasurementRepository;
 
 @Component
@@ -15,6 +17,8 @@ public class DataLoader {
     private IUnitOfMeasurementRepository uomRepo;
     @Autowired
     private IProductTypeRepository productTypeRepo;
+    @Autowired
+    private IRationTypeRepository rationTypeRepository;
 
 
     @PostConstruct
@@ -29,6 +33,15 @@ public class DataLoader {
             productTypeRepo.save(new ProductType("Perecible"));
             productTypeRepo.save(new ProductType("No perecible"));
         }
+
+        if (rationTypeRepository.count() == 0) {
+            rationTypeRepository.save(new RationType(0, "Desayuno"));
+            rationTypeRepository.save(new RationType(0, "Almuerzo"));
+            rationTypeRepository.save(new RationType(0, "Cena"));
+            rationTypeRepository.save(new RationType(0, "Adicional"));
+        }
+
+
     }
 
 
