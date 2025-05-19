@@ -10,17 +10,9 @@ public class ProductDTO {
     private float amountProduct;
     private int productType_id;
     private int unitOfMeasurement_id;
+    private String unitOfMeasurementAbbreviation;
+    private String productTypeName;
     private int user_id;
-
-    public String getExpirationDate() {
-        return expirationDate;
-    }
-
-    public void setExpirationDate(String expirationDate) {
-        this.expirationDate = expirationDate;
-    }
-
-    private String expirationDate;
 
     public int getProductType_id() {
         return productType_id;
@@ -37,6 +29,34 @@ public class ProductDTO {
     public void setUnitOfMeasurement_id(int unitOfMeasurement_id) {
         this.unitOfMeasurement_id = unitOfMeasurement_id;
     }
+
+    public String getUnitOfMeasurementAbbreviation() {
+        return unitOfMeasurementAbbreviation;
+    }
+
+    public void setUnitOfMeasurementAbbreviation(String unitOfMeasurementAbbreviation) {
+        this.unitOfMeasurementAbbreviation = unitOfMeasurementAbbreviation;
+    }
+
+    public String getProductTypeName() {
+        return productTypeName;
+    }
+
+    public void setProductTypeName(String productTypeName) {
+        this.productTypeName = productTypeName;
+    }
+
+    public String getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(String expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
+    private String expirationDate;
+
+
 
     public int getUser_id() {
         return user_id;
