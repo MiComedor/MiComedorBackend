@@ -12,6 +12,16 @@ public class ProductDTO {
     private int unitOfMeasurement_id;
     private int user_id;
 
+    public String getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(String expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
+    private String expirationDate;
+
     public int getProductType_id() {
         return productType_id;
     }

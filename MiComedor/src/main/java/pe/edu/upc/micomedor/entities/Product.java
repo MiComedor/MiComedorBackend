@@ -1,6 +1,9 @@
 package pe.edu.upc.micomedor.entities;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
+
 @Entity
 @Table(name="product")
 public class Product {
@@ -20,6 +23,9 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "User_id")
     private Users users;
+    @Column(name = "expiration_date", nullable = true)
+    private LocalDate expirationDate;
+
     public Product() {
     }
     public Product(int idProduct, String descriptionProduct, float amountProduct, ProductType productType, UnitOfMeasurement unitOfMeasurement, Users users) {
@@ -29,8 +35,12 @@ public class Product {
         this.productType = productType;
         this.unitOfMeasurement = unitOfMeasurement;
         this.users = users;
+        this.expirationDate = LocalDate.now();
     }
 
+    public LocalDate getExpirationDate() { return expirationDate;}
+
+    public void setExpirationDate(LocalDate expirationDate) { this.expirationDate = expirationDate;}
     public int getIdProduct() {
         return idProduct;
     }
