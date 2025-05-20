@@ -39,8 +39,9 @@ public class TaskCoordinationController {
     @DeleteMapping("/{id}")
     public void eliminar(@PathVariable("id") Integer id){ tcS.delete(id);}
 
-    @PutMapping
-    public void update(@RequestBody TaskCoordinationDTO dto) {
+    @PutMapping("/{id}")
+    public void update(@PathVariable("id") int id,@RequestBody TaskCoordinationDTO dto) {
+        dto.setIdTaskCoordination(id);
         ModelMapper m = new ModelMapper();
         TaskCoordination tc = m.map(dto, TaskCoordination.class);
         tcS.insert(tc);
