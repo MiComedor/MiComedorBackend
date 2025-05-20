@@ -5,9 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pe.edu.upc.micomedor.entities.ProductType;
 import pe.edu.upc.micomedor.entities.RationType;
+import pe.edu.upc.micomedor.entities.TypeOfTask;
 import pe.edu.upc.micomedor.entities.UnitOfMeasurement;
 import pe.edu.upc.micomedor.repositories.IProductTypeRepository;
 import pe.edu.upc.micomedor.repositories.IRationTypeRepository;
+import pe.edu.upc.micomedor.repositories.ITypeOfTaskRepository;
 import pe.edu.upc.micomedor.repositories.IUnitOfMeasurementRepository;
 
 @Component
@@ -19,6 +21,8 @@ public class DataLoader {
     private IProductTypeRepository productTypeRepo;
     @Autowired
     private IRationTypeRepository rationTypeRepository;
+    @Autowired
+    private ITypeOfTaskRepository typeOfTaskRepository;
 
 
     @PostConstruct
@@ -41,6 +45,24 @@ public class DataLoader {
             rationTypeRepository.save(new RationType(0, "Adicional"));
         }
 
+        if(typeOfTaskRepository.count() == 0){
+            typeOfTaskRepository.save(new TypeOfTask(0, "Lavar verduras y frutas"));
+            typeOfTaskRepository.save(new TypeOfTask(0, "Cortar ingredientes"));
+            typeOfTaskRepository.save(new TypeOfTask(0, "Cocinar alimentos"));
+            typeOfTaskRepository.save(new TypeOfTask(0, "Limpiar ollas y utensilios"));
+            typeOfTaskRepository.save(new TypeOfTask(0, "Preparar platos o bandejas para servir"));
+            typeOfTaskRepository.save(new TypeOfTask(0, "Repartir comida"));
+            typeOfTaskRepository.save(new TypeOfTask(0, "Controlar porciones"));
+            typeOfTaskRepository.save(new TypeOfTask(0, "Limpiar mesas y sillas"));
+            typeOfTaskRepository.save(new TypeOfTask(0, "Barrer y trapear el piso"));
+            typeOfTaskRepository.save(new TypeOfTask(0, "Lavar platos y cubiertos"));
+            typeOfTaskRepository.save(new TypeOfTask(0, "Vaciar y limpiar tachos de basura"));
+            typeOfTaskRepository.save(new TypeOfTask(0, "Limpiar baños"));
+            typeOfTaskRepository.save(new TypeOfTask(0, "Guardar insumos y donaciones"));
+            typeOfTaskRepository.save(new TypeOfTask(0, "Controlar inventario"));
+            typeOfTaskRepository.save(new TypeOfTask(0, "Organizar turnos de voluntarios"));
+
+        }
 
     }
 

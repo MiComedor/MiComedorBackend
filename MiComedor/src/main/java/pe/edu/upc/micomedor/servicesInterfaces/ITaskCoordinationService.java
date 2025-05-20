@@ -10,4 +10,5 @@ public interface ITaskCoordinationService {
     public  TaskCoordination listId(int idTaskCoordination);
     public List<TaskCoordination> list();
     public void update(TaskCoordination taskCoordination);
+    List <TaskCoordination> findTaskCoordinationByUserId(int idUser);
 }

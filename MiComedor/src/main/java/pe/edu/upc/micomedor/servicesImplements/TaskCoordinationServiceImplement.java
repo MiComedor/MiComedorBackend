@@ -32,4 +32,8 @@ public class TaskCoordinationServiceImplement implements ITaskCoordinationServic
     public void update(TaskCoordination taskCoordination) {
         tcR.save(taskCoordination);
     }
+    @Override
+    public List <TaskCoordination> findTaskCoordinationByUserId(int idUser) {
+       return tcR.findTaskCoordinationByUser(idUser);
+    }
 }
