@@ -75,7 +75,7 @@ public class RationController {
         return dto;
     }
 
-    @GetMapping("/reporteRacionesSemanales/{idUser}")
+    @GetMapping("/reporteRacionesSemanalesDiario/{idUser}")
     public List<RacionesPorSemanaDTO> obtenerRacionesPorSemana(@PathVariable int idUser) {
         List<Object[]> filaLista = rS.reporteSemanalRaciones(idUser);
         List<RacionesPorSemanaDTO> dtoLista = new ArrayList<>();
@@ -89,7 +89,7 @@ public class RationController {
         return dtoLista;
     }
 
-    @GetMapping("/reporteTotalRacionesBeneficiarios/{idUser}")
+    @GetMapping("/reporteTotalRacionesBeneficiariosDiario/{idUser}")
     public List<BeneficiariosPorDiaDTO> obtenerRacionesBeneficiarioPorDia(@PathVariable int idUser) {
         List<Object[]> filaLista = rS.cantidadBeneficiarioPorDia(idUser);
         List<BeneficiariosPorDiaDTO> dtoLista = new ArrayList<>();

@@ -11,12 +11,7 @@ public interface IProductService {
     public  Product listId(int idProduct);
     public List<Product> list();
     public void update(Product product);
-<<<<<<< HEAD
     List<Object[]> productosAvencerDiario(int idUser);
     List<Object[]> productosAvencerSemana(int idUser);
-=======
-
-
     List<Product> findByUserId(int idUser);
->>>>>>> 8c84f1de0c06a1dee140762357ec3e58ac8d745d
 }

@@ -4,16 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.micomedor.dtos.ProductByUserIdDTO;
 import pe.edu.upc.micomedor.dtos.ProductDTO;
-<<<<<<< HEAD
 import pe.edu.upc.micomedor.dtos.ProductosAvencerDiarioDTO;
 import pe.edu.upc.micomedor.dtos.ProductosAvencerSemanalDTO;
 import pe.edu.upc.micomedor.entities.Product;
 import pe.edu.upc.micomedor.entities.ProductType;
 import pe.edu.upc.micomedor.entities.UnitOfMeasurement;
 import pe.edu.upc.micomedor.entities.Users;
-=======
 import pe.edu.upc.micomedor.entities.*;
->>>>>>> 8c84f1de0c06a1dee140762357ec3e58ac8d745d
 import pe.edu.upc.micomedor.servicesInterfaces.IProductService;
 
 import java.time.LocalDate;
@@ -141,7 +138,6 @@ public class ProductController {
         return dto;
     }
 
-<<<<<<< HEAD
     @GetMapping("/reporteProductosAvencerDiario/{idUser}")
     public List<ProductosAvencerDiarioDTO> obtenerPresupuestoPorDia(@PathVariable int idUser) {
         List<Object[]> filaLista = pS.productosAvencerDiario(idUser);
@@ -166,8 +162,7 @@ public class ProductController {
             dto.setFechaVencimiento((String) fila[2]);
             dtoLista.add(dto);
         }
-        return dtoLista;
-=======
+        return dtoLista;}
     // ✅ NUEVO: LISTAR PRODUCTOS POR USUARIO
     @GetMapping("/productoPorUsuario/{idUser}")
     public List<ProductByUserIdDTO> obtenerProductosPorUsuario(@PathVariable int idUser) {
@@ -185,8 +180,6 @@ public class ProductController {
 
             resultado.add(dto);
         }
-
         return resultado;
->>>>>>> 8c84f1de0c06a1dee140762357ec3e58ac8d745d
     }
 }

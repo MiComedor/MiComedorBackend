@@ -13,7 +13,6 @@ import java.util.List;
 
 @Repository
 public interface IProductRepository extends JpaRepository<Product, Integer> {
-<<<<<<< HEAD
     @Query(value = "SELECT description_product, expiration_date\n" +
             "FROM product\n" +
             "WHERE expiration_date BETWEEN CURRENT_DATE AND CURRENT_DATE + INTERVAL '5 days'\n" +
@@ -38,8 +37,7 @@ public interface IProductRepository extends JpaRepository<Product, Integer> {
             "  AND user_id = :idUser\n" +
             "ORDER BY expiration_date", nativeQuery = true)
     List<Object[]> productosAvencerSemana(@Param("idUser") int idUser);
-=======
     @Query(value = "SELECT * FROM product WHERE user_id = :idUser", nativeQuery = true)
     List<Product> findProductsByUserId(@Param("idUser") int idUser);
->>>>>>> 8c84f1de0c06a1dee140762357ec3e58ac8d745d
+
 }
