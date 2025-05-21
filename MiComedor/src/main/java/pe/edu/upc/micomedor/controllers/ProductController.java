@@ -2,14 +2,13 @@ package pe.edu.upc.micomedor.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.micomedor.dtos.ProductByUserIdDTO;
 import pe.edu.upc.micomedor.dtos.ProductDTO;
-import pe.edu.upc.micomedor.entities.Product;
-import pe.edu.upc.micomedor.entities.ProductType;
-import pe.edu.upc.micomedor.entities.UnitOfMeasurement;
-import pe.edu.upc.micomedor.entities.Users;
+import pe.edu.upc.micomedor.entities.*;
 import pe.edu.upc.micomedor.servicesInterfaces.IProductService;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -128,5 +127,26 @@ public class ProductController {
         }
 
         return dto;
+    }
+
+    // ✅ NUEVO: LISTAR PRODUCTOS POR USUARIO
+    @GetMapping("/productoPorUsuario/{idUser}")
+    public List<ProductByUserIdDTO> obtenerProductosPorUsuario(@PathVariable int idUser) {
+        List<Product> productos = pS.findByUserId(idUser);
+        List<ProductByUserIdDTO> resultado = new ArrayList<>();
+
+        for (Product producto : productos) {
+            ProductByUserIdDTO dto = new ProductByUserIdDTO();
+            dto.setIdProduct(producto.getIdProduct());
+            dto.setDescriptionProduct(producto.getDescriptionProduct());
+            dto.setAmountProduct(producto.getAmountProduct());
+            dto.setExpirationDate(producto.getExpirationDate() != null ? producto.getExpirationDate().toString() : null);
+            dto.setUnitOfMeasurementAbbreviation(producto.getUnitOfMeasurement().getAbbreviation());
+            dto.setUser_id(producto.getUsers().getIdUser());
+
+            resultado.add(dto);
+        }
+
+        return resultado;
     }
 }

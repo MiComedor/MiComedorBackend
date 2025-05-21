@@ -32,4 +32,9 @@ public class ProductServiceImplement implements IProductService {
     public void update(Product product) {
         pR.save(product);
     }
+
+    @Override
+    public List<Product> findByUserId(int idUser) {
+        return pR.findProductsByUserId(idUser); // no más error
+    }
 }
