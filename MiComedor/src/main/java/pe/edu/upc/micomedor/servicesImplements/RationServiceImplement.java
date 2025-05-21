@@ -38,4 +38,21 @@ public class RationServiceImplement  implements IRationService {
     public List<Ration> findRationByUserId(int idUser) {
         return rR.findRationByUserId(idUser);
     }
+    @Override
+    public int reporteDiarioRacionPorDia(int idUser) {
+        return rR.reporteDiarioRacionPorDia(idUser);
+    }
+    @Override
+    public List<Object[]> reporteSemanalRaciones(int idUser) {
+        return rR.reporteSemanalRaciones(idUser);
+    }
+
+    @Override
+    public List<Object[]> cantidadBeneficiarioPorDia(int idUser) {
+        return  rR.cantidadBeneficiarioPorDia(idUser);
+    }
+    @Override
+    public List<Object[]> cantidadBeneficiarioPorSemana(int idUser) {
+        return rR.cantidadBeneficiarioPorSemana(idUser);
+    }
 }

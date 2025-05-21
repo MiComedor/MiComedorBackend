@@ -32,4 +32,13 @@ public class ProductServiceImplement implements IProductService {
     public void update(Product product) {
         pR.save(product);
     }
+    @Override
+    public List<Object[]> productosAvencerDiario(int idUser) {
+       return pR.productosAvencerDiario(idUser);
+    }
+
+    @Override
+    public List<Object[]> productosAvencerSemana(int idUser) {
+        return pR.productosAvencerSemana(idUser);
+    }
 }

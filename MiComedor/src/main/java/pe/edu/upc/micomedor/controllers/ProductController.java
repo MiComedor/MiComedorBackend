@@ -3,6 +3,8 @@ package pe.edu.upc.micomedor.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.micomedor.dtos.ProductDTO;
+import pe.edu.upc.micomedor.dtos.ProductosAvencerDiarioDTO;
+import pe.edu.upc.micomedor.dtos.ProductosAvencerSemanalDTO;
 import pe.edu.upc.micomedor.entities.Product;
 import pe.edu.upc.micomedor.entities.ProductType;
 import pe.edu.upc.micomedor.entities.UnitOfMeasurement;
@@ -11,7 +13,10 @@ import pe.edu.upc.micomedor.servicesInterfaces.IProductService;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
+import java.sql.Date;
+
 
 @RestController
 @RequestMapping("/product")
@@ -128,5 +133,32 @@ public class ProductController {
         }
 
         return dto;
+    }
+
+    @GetMapping("/reporteProductosAvencerDiario/{idUser}")
+    public List<ProductosAvencerDiarioDTO> obtenerPresupuestoPorDia(@PathVariable int idUser) {
+        List<Object[]> filaLista = pS.productosAvencerDiario(idUser);
+        List<ProductosAvencerDiarioDTO> dtoLista = new ArrayList<>();
+        for (Object[] fila : filaLista) {
+            ProductosAvencerDiarioDTO dto = new ProductosAvencerDiarioDTO();
+            dto.setDescripcionProducto((String) fila[0]);
+            dto.setExpirationDate(((Date) fila[1]).toLocalDate());
+            dtoLista.add(dto);
+        }
+        return dtoLista;
+    }
+
+    @GetMapping("/reporteProductosAvencerSemanal/{idUser}")
+    public List<ProductosAvencerSemanalDTO> obtenerPresupuestoPorSemanal(@PathVariable int idUser) {
+        List<Object[]> filaLista = pS.productosAvencerSemana(idUser);
+        List<ProductosAvencerSemanalDTO> dtoLista = new ArrayList<>();
+        for (Object[] fila : filaLista) {
+            ProductosAvencerSemanalDTO dto = new ProductosAvencerSemanalDTO();
+            dto.setDescripcionProducto((String) fila[0]);
+            dto.setDiaVencimientos((String) fila[1]);
+            dto.setFechaVencimiento((String) fila[2]);
+            dtoLista.add(dto);
+        }
+        return dtoLista;
     }
 }

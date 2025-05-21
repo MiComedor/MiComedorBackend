@@ -1,7 +1,10 @@
 package pe.edu.upc.micomedor.servicesImplements;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.support.PageableUtils;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
+import pe.edu.upc.micomedor.entities.Ration;
 import pe.edu.upc.micomedor.entities.RationType;
 import pe.edu.upc.micomedor.repositories.IRationTypeRepository;
 import pe.edu.upc.micomedor.servicesInterfaces.IRationTypeService;

@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pe.edu.upc.micomedor.entities.Budget;
 import pe.edu.upc.micomedor.repositories.IBudgetRepository;
-import pe.edu.upc.micomedor.repositories.IProductTypeRepository;
 import pe.edu.upc.micomedor.servicesInterfaces.IBudgetService;
 
 import java.util.List;
@@ -32,5 +31,13 @@ public class BudgetServiceImplement implements IBudgetService {
     @Override
     public void update(Budget budget) {
         bR.save(budget);
+    }
+    @Override
+    public List<Object[]> PresupuestoPorDia(int idUser) {
+      return bR.PresupuestoPorDia(idUser);
+    }
+    @Override
+    public List<Object[]> PresupuestoPorSemana(int idUser) {
+        return bR.PresupuestoPorSemana(idUser);
     }
 }

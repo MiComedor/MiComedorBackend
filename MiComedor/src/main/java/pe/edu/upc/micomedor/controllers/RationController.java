@@ -3,8 +3,7 @@ package pe.edu.upc.micomedor.controllers;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pe.edu.upc.micomedor.dtos.RationByUserIdDTO;
-import pe.edu.upc.micomedor.dtos.RationDTO;
+import pe.edu.upc.micomedor.dtos.*;
 import pe.edu.upc.micomedor.entities.Ration;
 import pe.edu.upc.micomedor.servicesInterfaces.IRationService;
 
@@ -66,6 +65,54 @@ public class RationController {
         }
 
         return resultado;
+    }
+
+    @GetMapping("/racionPorDia/{idUser}")
+    public RacionesPorDiaDTO obtenerListaRacionDia(@PathVariable int idUser) {
+        int total = rS.reporteDiarioRacionPorDia(idUser);
+        RacionesPorDiaDTO dto = new RacionesPorDiaDTO();
+        dto.setTotalRacionPorDia(total);
+        return dto;
+    }
+
+    @GetMapping("/reporteRacionesSemanales/{idUser}")
+    public List<RacionesPorSemanaDTO> obtenerRacionesPorSemana(@PathVariable int idUser) {
+        List<Object[]> filaLista = rS.reporteSemanalRaciones(idUser);
+        List<RacionesPorSemanaDTO> dtoLista = new ArrayList<>();
+        for (Object[] fila : filaLista) {
+            RacionesPorSemanaDTO dto = new RacionesPorSemanaDTO();
+            dto.setDia((String) fila[0]);
+            dto.setFecha((String) fila[1]);
+            dto.setTotalRaciones(((Number) fila[2]).intValue());
+            dtoLista.add(dto);
+        }
+        return dtoLista;
+    }
+
+    @GetMapping("/reporteTotalRacionesBeneficiarios/{idUser}")
+    public List<BeneficiariosPorDiaDTO> obtenerRacionesBeneficiarioPorDia(@PathVariable int idUser) {
+        List<Object[]> filaLista = rS.cantidadBeneficiarioPorDia(idUser);
+        List<BeneficiariosPorDiaDTO> dtoLista = new ArrayList<>();
+        for (Object[] fila : filaLista) {
+            BeneficiariosPorDiaDTO dto = new BeneficiariosPorDiaDTO();
+            dto.setBeneficiariosPorDia(((Number) fila[0]).intValue());
+            dtoLista.add(dto);
+        }
+        return dtoLista;
+    }
+
+    @GetMapping("/reporteTotalRacionesBeneficiariosSemana/{idUser}")
+    public List<BeneficiarioPorSemanaDTO> obtenerRacionesBeneficiarioPorSemana(@PathVariable int idUser) {
+        List<Object[]> filaLista = rS.cantidadBeneficiarioPorSemana(idUser);
+        List<BeneficiarioPorSemanaDTO> dtoLista = new ArrayList<>();
+        for (Object[] fila : filaLista) {
+            BeneficiarioPorSemanaDTO dto = new BeneficiarioPorSemanaDTO();
+            dto.setDia(((String) fila[0]));
+            dto.setFecha(((String) fila[1]));
+            dto.setTotalBeneficiarios(((Number) fila[2]).intValue());
+            dtoLista.add(dto);
+        }
+        return dtoLista;
     }
 
 }
