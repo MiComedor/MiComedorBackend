@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import pe.edu.upc.micomedor.entities.Ration;
 
 @Repository
-public interface IRationRepository extends JpaRepository<Ration, Integer>{
+public interface IRationRepository extends JpaRepository<Ration, Integer> {
     @Query(value = "select * from ration where user_id = :idUser", nativeQuery = true)
     List<Ration> findRationByUserId(@Param("idUser") int idUser);
 

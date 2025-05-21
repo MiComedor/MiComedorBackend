@@ -32,6 +32,7 @@ public class ProductServiceImplement implements IProductService {
     public void update(Product product) {
         pR.save(product);
     }
+<<<<<<< HEAD
     @Override
     public List<Object[]> productosAvencerDiario(int idUser) {
        return pR.productosAvencerDiario(idUser);
@@ -40,5 +41,11 @@ public class ProductServiceImplement implements IProductService {
     @Override
     public List<Object[]> productosAvencerSemana(int idUser) {
         return pR.productosAvencerSemana(idUser);
+=======
+
+    @Override
+    public List<Product> findByUserId(int idUser) {
+        return pR.findProductsByUserId(idUser); // no más error
+>>>>>>> 8c84f1de0c06a1dee140762357ec3e58ac8d745d
     }
 }
