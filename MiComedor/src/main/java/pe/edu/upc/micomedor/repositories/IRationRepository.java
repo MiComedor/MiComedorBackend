@@ -31,7 +31,7 @@ public interface IRationRepository extends JpaRepository<Ration, Integer> {
             "  COUNT(r.id_ration) AS total_raciones\n" +
             "FROM dias_semana d \n" +
             "LEFT JOIN ration r \n" +
-            "  ON r.date = d.dia AND r.user_id = 1\n" +
+            "  ON r.date = d.dia AND r.user_id = :idUser\n" +
             "GROUP BY d.dia\n" +
             "ORDER BY d.dia", nativeQuery = true)
     List<Object[]> reporteSemanalRaciones(@Param("idUser") int idUser);
