@@ -10,13 +10,10 @@ import pe.edu.upc.micomedor.entities.Product;
 import pe.edu.upc.micomedor.entities.ProductType;
 import pe.edu.upc.micomedor.entities.UnitOfMeasurement;
 import pe.edu.upc.micomedor.entities.Users;
-import pe.edu.upc.micomedor.entities.*;
 import pe.edu.upc.micomedor.servicesInterfaces.IProductService;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.sql.Date;
 
@@ -175,7 +172,15 @@ public class ProductController {
             dto.setIdProduct(producto.getIdProduct());
             dto.setDescriptionProduct(producto.getDescriptionProduct());
             dto.setAmountProduct(producto.getAmountProduct());
-            dto.setExpirationDate(producto.getExpirationDate() != null ? producto.getExpirationDate().toString() : null);
+
+            dto.setExpirationDate(
+                    producto.getExpirationDate() != null ? producto.getExpirationDate().toString() : null
+            );
+
+            // ✅ Nuevos campos que FALTABAN:
+            dto.setUnitOfMeasurement_id(producto.getUnitOfMeasurement().getIdUnitOfMeasurement());
+            dto.setProductType_id(producto.getProductType().getIdProductType());
+
             dto.setUnitOfMeasurementAbbreviation(producto.getUnitOfMeasurement().getAbbreviation());
             dto.setUser_id(producto.getUsers().getIdUser());
 
@@ -183,4 +188,5 @@ public class ProductController {
         }
         return resultado;
     }
+
 }

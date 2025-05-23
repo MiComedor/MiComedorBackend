@@ -9,9 +9,14 @@ public class ProductByUserIdDTO {
     private String expirationDate;
     private String unitOfMeasurementAbbreviation;
     private int user_id;
+    private int unitOfMeasurement_id;
+    private int productType_id;
+
 
     public ProductByUserIdDTO() {
     }
+
+
     public int getIdProduct() {
         return idProduct;
     }
@@ -60,7 +65,26 @@ public class ProductByUserIdDTO {
         this.user_id = user_id;
     }
 
+    public int getProductType_id() {
+        return productType_id;
+    }
+
+    public void setProductType_id(int productType_id) {
+        this.productType_id = productType_id;
+    }
+
+    public int getUnitOfMeasurement_id() {
+        return unitOfMeasurement_id;
+    }
+
+    public void setUnitOfMeasurement_id(int unitOfMeasurement_id) {
+        this.unitOfMeasurement_id = unitOfMeasurement_id;
+    }
 
 
-    // Getters y Setters
+
+
+
+
+
 }
