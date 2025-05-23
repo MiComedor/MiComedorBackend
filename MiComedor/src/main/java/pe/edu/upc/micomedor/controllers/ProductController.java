@@ -86,11 +86,11 @@ public class ProductController {
         pS.delete(id);
     }
 
-    // ✅ ACTUALIZAR PRODUCTO
-    @PutMapping
-    public void update(@RequestBody ProductDTO dto) {
+    @PutMapping("/{id}")
+    public void update(@PathVariable("id") Integer id, @RequestBody ProductDTO dto) {
         Product p = new Product();
-        p.setIdProduct(dto.getIdProduct());
+        p.setIdProduct(id); // Usa el ID de la URL en lugar de depender del DTO
+
         p.setDescriptionProduct(dto.getDescriptionProduct());
         p.setAmountProduct(dto.getAmountProduct());
 
@@ -114,6 +114,7 @@ public class ProductController {
 
         pS.update(p);
     }
+
 
     // ✅ LISTAR POR ID
     @GetMapping("/{id}")
