@@ -37,12 +37,20 @@ public class BeneficiaryController {
     @DeleteMapping("/{id}")
     public void eliminar(@PathVariable("id") Integer id){ ibS.delete(id);}
 
-    @PutMapping
-    public void update(@RequestBody BeneficiaryDTO dto) {
+    @PutMapping("/{id}")
+    public void update(@PathVariable("id") int id, @RequestBody BeneficiaryDTO dto) {
         ModelMapper m = new ModelMapper();
-        Beneficiary u = m.map(dto, Beneficiary.class);
-        ibS.insert(u);
+        Beneficiary existing = ibS.listId(id); // obtener el actual desde DB
+        if (existing == null) return; // o lanza error
+
+        Beneficiary updated = m.map(dto, Beneficiary.class);
+        updated.setIdBeneficiary(id);
+        updated.setUsers(existing.getUsers()); // ⬅️ conserva el user actual
+
+        ibS.insert(updated);
     }
+
+
 
     @GetMapping("/{id}")
     public BeneficiaryDTO listById(@PathVariable("id") int id) {
