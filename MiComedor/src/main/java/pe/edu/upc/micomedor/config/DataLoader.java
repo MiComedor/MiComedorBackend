@@ -3,14 +3,8 @@ package pe.edu.upc.micomedor.config;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import pe.edu.upc.micomedor.entities.ProductType;
-import pe.edu.upc.micomedor.entities.RationType;
-import pe.edu.upc.micomedor.entities.TypeOfTask;
-import pe.edu.upc.micomedor.entities.UnitOfMeasurement;
-import pe.edu.upc.micomedor.repositories.IProductTypeRepository;
-import pe.edu.upc.micomedor.repositories.IRationTypeRepository;
-import pe.edu.upc.micomedor.repositories.ITypeOfTaskRepository;
-import pe.edu.upc.micomedor.repositories.IUnitOfMeasurementRepository;
+import pe.edu.upc.micomedor.entities.*;
+import pe.edu.upc.micomedor.repositories.*;
 
 @Component
 public class DataLoader {
@@ -23,6 +17,8 @@ public class DataLoader {
     private IRationTypeRepository rationTypeRepository;
     @Autowired
     private ITypeOfTaskRepository typeOfTaskRepository;
+    @Autowired
+    private IBudgetCategoryRepository budgetCategoryRepository;
 
 
     @PostConstruct
@@ -44,6 +40,13 @@ public class DataLoader {
             rationTypeRepository.save(new RationType(0, "Cena"));
             rationTypeRepository.save(new RationType(0, "Adicional"));
         }
+
+        if (budgetCategoryRepository.count() == 0) {
+            budgetCategoryRepository.save(new BudgetCategory(0, "Ingresos"));
+            budgetCategoryRepository.save(new BudgetCategory(0, "Egresos"));
+        }
+
+
 
         if(typeOfTaskRepository.count() == 0){
             typeOfTaskRepository.save(new TypeOfTask(0, "Lavar verduras y frutas"));
