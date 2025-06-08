@@ -10,8 +10,8 @@ import java.util.List;
 @Repository
 public interface IBudgetRepository extends JpaRepository<Budget,Integer> {
     @Query(value = "SELECT \n" +
-            "  SUM(CASE WHEN budget_category_id = 1 THEN amount_budget ELSE 0 END) AS ingresos_hoy,\n" +  // antes era 2
-            "  SUM(CASE WHEN budget_category_id = 2 THEN amount_budget ELSE 0 END) AS egresos_hoy,\n" +  // antes era 1
+            "  SUM(CASE WHEN budget_category_id = 1 THEN amount_budget ELSE 0 END) AS ingresos_hoy,\n" +
+            "  SUM(CASE WHEN budget_category_id = 2 THEN amount_budget ELSE 0 END) AS egresos_hoy,\n" +
             "  SUM(CASE WHEN budget_category_id = 1 THEN amount_budget ELSE 0 END) -\n" +
             "  SUM(CASE WHEN budget_category_id = 2 THEN amount_budget ELSE 0 END) AS saldo_final\n" +
             "FROM budget\n" +
@@ -19,8 +19,6 @@ public interface IBudgetRepository extends JpaRepository<Budget,Integer> {
             "  AND user_id = :idUser",
             nativeQuery = true)
     List<Object[]> PresupuestoPorDia(@Param("idUser") int idUser);
-
-
 
     @Query(value = "WITH dias_semana AS (\n" +
             "  SELECT generate_series(\n" +
