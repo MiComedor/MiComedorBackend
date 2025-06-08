@@ -57,15 +57,20 @@ public class BudgetController {
     public List<PresupuestoPorDiaDTO> obtenerPresupuestoPorDia(@PathVariable int idUser) {
         List<Object[]> filaLista = bS.PresupuestoPorDia(idUser);
         List<PresupuestoPorDiaDTO> dtoLista = new ArrayList<>();
+
         for (Object[] fila : filaLista) {
             PresupuestoPorDiaDTO dto = new PresupuestoPorDiaDTO();
-            dto.setIngresosHoy(((Number) fila[0]).intValue());
-            dto.setEgresosHoy(((Number) fila[1]).intValue());
-            dto.setSaldoFinal(((Number) fila[2]).intValue());
+
+            dto.setIngresosHoy(fila[0] != null ? ((Number) fila[0]).intValue() : 0);
+            dto.setEgresosHoy(fila[1] != null ? ((Number) fila[1]).intValue() : 0);
+            dto.setSaldoFinal(fila[2] != null ? ((Number) fila[2]).intValue() : 0);
+
             dtoLista.add(dto);
         }
+
         return dtoLista;
     }
+
 
     @GetMapping("/reportePresupuestoPorSemana/{idUser}")
     public List<PresupuestoPorSemanaDTO> obtenerPresupuestoPorSemana(@PathVariable int idUser) {
