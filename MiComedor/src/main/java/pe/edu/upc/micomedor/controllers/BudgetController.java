@@ -81,7 +81,7 @@ public class BudgetController {
             if (fila[0] != null) {
                 dto.setFecha(((Date) fila[0]).toLocalDate());
             } else {
-                dto.setFecha(null); // o algún valor por defecto si aplica
+                dto.setFecha(null);
             }
             dto.setDia(fila[1] != null ? (String) fila[1] : "");
             dto.setFechasDiaMes(fila[2] != null ? (String) fila[2] : "");
