@@ -10,10 +10,10 @@ import java.util.List;
 @Repository
 public interface IBudgetRepository extends JpaRepository<Budget,Integer> {
     @Query(value = "SELECT \n" +
-            " SUM(CASE WHEN budget_category_id = 1 THEN amount_budget ELSE 0 END) AS ingresos_hoy,\n" +
-            "  SUM(CASE WHEN budget_category_id = 2 THEN amount_budget ELSE 0 END) AS egresos_hoy,\n" +
-            "  SUM(CASE WHEN budget_category_id = 1 THEN amount_budget ELSE 0 END) -\n" +
-            "  SUM(CASE WHEN budget_category_id = 2 THEN amount_budget ELSE 0 END) AS saldo_final\n" +
+            " SUM(CASE WHEN budget_category_id = 2 THEN amount_budget ELSE 0 END) AS ingresos_hoy,\n" +
+            "  SUM(CASE WHEN budget_category_id = 1 THEN amount_budget ELSE 0 END) AS egresos_hoy,\n" +
+            "  SUM(CASE WHEN budget_category_id = 2 THEN amount_budget ELSE 0 END) -\n" +
+            "  SUM(CASE WHEN budget_category_id = 1 THEN amount_budget ELSE 0 END) AS saldo_final\n" +
             "FROM budget\n" +
             "WHERE date_budget = (now() AT TIME ZONE 'America/Lima')::date\n" +
             "  AND user_id = :idUser",
