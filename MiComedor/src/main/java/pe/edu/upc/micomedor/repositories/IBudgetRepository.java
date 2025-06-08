@@ -15,9 +15,10 @@ public interface IBudgetRepository extends JpaRepository<Budget,Integer> {
             "  SUM(CASE WHEN budget_category_id = 2 THEN amount_budget ELSE 0 END) -\n" +
             "  SUM(CASE WHEN budget_category_id = 1 THEN amount_budget ELSE 0 END) AS saldo_final\n" +
             "FROM budget\n" +
-            "WHERE date_budget = CURRENT_DATE\n" +
+            "WHERE date_budget = (CURRENT_DATE AT TIME ZONE 'UTC' AT TIME ZONE 'America/Lima')\n" +
             "  AND user_id = :idUser", nativeQuery = true)
     List<Object[]> PresupuestoPorDia(@Param("idUser") int idUser);
+
 
     @Query(value = "WITH dias_semana AS (\n" +
             "  SELECT generate_series(\n" +
