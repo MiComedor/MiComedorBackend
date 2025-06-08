@@ -55,6 +55,8 @@ public class BudgetController {
 
     @GetMapping("/reportePresupuestoPorDia/{idUser}")
     public List<PresupuestoPorDiaDTO> obtenerPresupuestoPorDia(@PathVariable int idUser) {
+        System.out.println(">>> VERSIÓN ACTUAL: categoría 1 = Ingreso ✅");
+
         List<Object[]> filaLista = bS.PresupuestoPorDia(idUser);
         List<PresupuestoPorDiaDTO> dtoLista = new ArrayList<>();
 
