@@ -94,4 +94,11 @@ public class BudgetController {
         return dtoLista;
     }
 
+
+    @GetMapping("/debug/fecha-peru")
+    public String fechaActualPeru() {
+        java.time.LocalDate fechaPeru = java.time.ZonedDateTime.now(java.time.ZoneId.of("America/Lima")).toLocalDate();
+        return ">>> Fecha actual en Perú: " + fechaPeru;
+    }
+
 }

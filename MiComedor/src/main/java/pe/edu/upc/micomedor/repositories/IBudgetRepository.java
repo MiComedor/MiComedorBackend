@@ -61,4 +61,6 @@ public interface IBudgetRepository extends JpaRepository<Budget,Integer> {
             "FROM datos_diarios\n" +
             "ORDER BY dia NULLS LAST;\n", nativeQuery = true)
     List<Object[]> PresupuestoPorSemana(@Param("idUser") int idUser);
+
+
 }

@@ -15,4 +15,6 @@ public interface IBudgetCategoryService {
     public void delete(int id);
 
     void update(BudgetCategory budgetCategory);
+
+
 }
