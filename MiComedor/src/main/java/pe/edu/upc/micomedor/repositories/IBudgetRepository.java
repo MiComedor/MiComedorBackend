@@ -40,10 +40,10 @@ public interface IBudgetRepository extends JpaRepository<Budget,Integer> {
             "      WHEN 6 THEN 'Sábado'\n" +
             "    END AS nombre_dia,\n" +
             "    TO_CHAR(d.dia, 'DD/MM') AS fecha,\n" +
-            "    COALESCE(SUM(CASE WHEN b.budget_category_id = 2 THEN b.amount_budget ELSE 0 END), 0) AS ingresos,\n" +
-            "    COALESCE(SUM(CASE WHEN b.budget_category_id = 1 THEN b.amount_budget ELSE 0 END), 0) AS egresos,\n" +
-            "    COALESCE(SUM(CASE WHEN b.budget_category_id = 2 THEN b.amount_budget ELSE 0 END), 0) -\n" +
-            "    COALESCE(SUM(CASE WHEN b.budget_category_id = 1 THEN b.amount_budget ELSE 0 END), 0) AS saldo\n" +
+            "    COALESCE(SUM(CASE WHEN b.budget_category_id = 1 THEN b.amount_budget ELSE 0 END), 0) AS ingresos,\n" +
+            "    COALESCE(SUM(CASE WHEN b.budget_category_id = 2 THEN b.amount_budget ELSE 0 END), 0) AS egresos,\n" +
+            "    COALESCE(SUM(CASE WHEN b.budget_category_id = 1 THEN b.amount_budget ELSE 0 END), 0) -\n" +
+            "    COALESCE(SUM(CASE WHEN b.budget_category_id = 2 THEN b.amount_budget ELSE 0 END), 0) AS saldo\n" +
             "  FROM dias_semana d\n" +
             "  LEFT JOIN budget b ON b.date_budget = d.dia AND b.user_id = :idUser\n" +
             "  GROUP BY d.dia\n" +
