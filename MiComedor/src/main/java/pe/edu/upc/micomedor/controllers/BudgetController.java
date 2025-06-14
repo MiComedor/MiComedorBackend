@@ -46,6 +46,14 @@ public class BudgetController {
         bS.insert(b);
     }
 
+    @GetMapping("/usuario/{idUser}")
+    public List<BudgetDTO> listarPorUsuario(@PathVariable int idUser) {
+        return bS.listByUser(idUser).stream().map(budget -> {
+            ModelMapper m = new ModelMapper();
+            return m.map(budget, BudgetDTO.class);
+        }).collect(Collectors.toList());
+    }
+
     @GetMapping("/{id}")
     public BudgetDTO listById(@PathVariable("id") int id) {
         ModelMapper m = new ModelMapper();

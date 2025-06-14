@@ -40,4 +40,12 @@ public class BudgetServiceImplement implements IBudgetService {
     public List<Object[]> PresupuestoPorSemana(int idUser) {
         return bR.PresupuestoPorSemana(idUser);
     }
+    @Override
+    public List<Budget> listByUser(int idUser) {
+        return bR.findByUsersIdUser(idUser);
+    }
+
+
+
+
 }

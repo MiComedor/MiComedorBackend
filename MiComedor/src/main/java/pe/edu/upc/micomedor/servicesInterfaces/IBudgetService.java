@@ -12,4 +12,5 @@ public interface IBudgetService {
     public void update(Budget budget);
     List<Object[]> PresupuestoPorDia(int idUser);
     List<Object[]> PresupuestoPorSemana(int idUser);
+    List<Budget> listByUser(int idUser);
 }
