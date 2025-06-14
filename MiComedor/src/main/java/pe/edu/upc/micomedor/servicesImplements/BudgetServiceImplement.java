@@ -42,10 +42,6 @@ public class BudgetServiceImplement implements IBudgetService {
     }
     @Override
     public List<Budget> listByUser(int idUser) {
-        return bR.findByUsersIdUser(idUser);
+        return bR.findBudgetsByUserId(idUser);
     }
-
-
-
-
 }
