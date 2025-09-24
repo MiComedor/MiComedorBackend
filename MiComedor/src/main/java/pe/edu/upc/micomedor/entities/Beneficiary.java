@@ -18,18 +18,21 @@ public class Beneficiary implements Serializable {
     private int ageBeneficiary;
     @Column(name = "observationsBeneficiary", nullable = false, length = 300)
     private String observationsBeneficiary;
+    @Column(name = "is_active", nullable = false)
+    private boolean isActive = true;
     @ManyToOne
     @JoinColumn(name = "User_id")
     private Users users;
     public Beneficiary() {
     }
 
-    public Beneficiary(int idBeneficiary, int dniBenefeciary, String fullnameBenefeciary, int ageBeneficiary, String observationsBeneficiary, Users users) {
+    public Beneficiary(int idBeneficiary, int dniBenefeciary, String fullnameBenefeciary, int ageBeneficiary, String observationsBeneficiary, boolean isActive,Users users) {
         this.idBeneficiary = idBeneficiary;
         this.dniBenefeciary = dniBenefeciary;
         this.fullnameBenefeciary = fullnameBenefeciary;
         this.ageBeneficiary = ageBeneficiary;
         this.observationsBeneficiary = observationsBeneficiary;
+        this.isActive = isActive;
         this.users = users;
     }
 
@@ -60,6 +63,9 @@ public class Beneficiary implements Serializable {
     public int getAgeBeneficiary() {
         return ageBeneficiary;
     }
+
+    public boolean getIsActive() { return isActive; }
+    public void setIsActive(boolean active) { isActive = active; }
 
     public void setAgeBeneficiary(int ageBeneficiary) {
         this.ageBeneficiary = ageBeneficiary;

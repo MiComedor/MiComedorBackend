@@ -1,6 +1,8 @@
 package pe.edu.upc.micomedor.servicesImplements;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import pe.edu.upc.micomedor.entities.Beneficiary;
 import pe.edu.upc.micomedor.repositories.IBeneficiaryRepository;
@@ -32,10 +34,18 @@ public class BeneficiaryServiceImplement implements IBeneficiaryService {
     public void update(Beneficiary beneficiary) {
         bR.save(beneficiary);
     }
-
     @Override
     public List<Beneficiary> findBeneficiaryByUserId(int idUser) {
         return bR.findBeneficiaryByUserId(idUser);
+    }
+    @Override
+    @Transactional
+    public void deleteBeneficiaryActive (int id) {
+        bR.deleteBeneficiaryActive(id);
+    }
+    @Override
+    public List <Beneficiary> findActiveByUserId(int userId) {
+        return bR.findActiveByUserId(userId);
     }
 
 }

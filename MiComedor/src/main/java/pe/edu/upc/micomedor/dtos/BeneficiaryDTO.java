@@ -8,6 +8,7 @@ public class BeneficiaryDTO {
     private String fullnameBenefeciary;
     private int ageBeneficiary;
     private String observationsBeneficiary;
+    private boolean isActive = true;
     private Users users;
 
     public int getIdBeneficiary() {
@@ -49,11 +50,15 @@ public class BeneficiaryDTO {
     public void setObservationsBeneficiary(String observationsBeneficiary) {
         this.observationsBeneficiary = observationsBeneficiary;
     }
-
+    public boolean isActive() {
+        return isActive;
+    }
+    public void setActive(boolean active) {
+        isActive = active;
+    }
     public Users getUsers() {
         return users;
     }
-
     public void setUsers(Users users) {
         this.users = users;
     }

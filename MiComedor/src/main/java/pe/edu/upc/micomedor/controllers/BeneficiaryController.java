@@ -34,8 +34,8 @@ public class BeneficiaryController {
         }).collect(Collectors.toList());
     }
 
-    @DeleteMapping("/{id}")
-    public void eliminar(@PathVariable("id") Integer id){ ibS.delete(id);}
+    @PutMapping("/deleteActive/{id}")
+    public void eliminar(@PathVariable("id") Integer id){ ibS.deleteBeneficiaryActive(id);}
 
     @PutMapping("/{id}")
     public void update(@PathVariable("id") int id, @RequestBody BeneficiaryDTO dto) {
@@ -50,8 +50,6 @@ public class BeneficiaryController {
         ibS.insert(updated);
     }
 
-
-
     @GetMapping("/{id}")
     public BeneficiaryDTO listById(@PathVariable("id") int id) {
         ModelMapper m = new ModelMapper();
@@ -61,7 +59,7 @@ public class BeneficiaryController {
 
     @GetMapping("/beneficiarioPorUsuario/{idUser}")
     public List<BeneficiaryByUserDTO> obtenerListaBeneficiariosPorUsuario(@PathVariable int idUser) {
-        List<Beneficiary> beneficiaries = ibS.findBeneficiaryByUserId(idUser);
+        List<Beneficiary> beneficiaries = ibS.findActiveByUserId(idUser);
         List<BeneficiaryByUserDTO> resultado = new ArrayList<>();
 
         for (Beneficiary beneficiary : beneficiaries) {
@@ -73,7 +71,7 @@ public class BeneficiaryController {
             dto.setObservationsBeneficiary(beneficiary.getObservationsBeneficiary());
             resultado.add(dto);
         }
-
         return resultado;
     }
+
 }
