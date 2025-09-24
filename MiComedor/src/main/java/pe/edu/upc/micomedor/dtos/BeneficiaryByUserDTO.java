@@ -6,6 +6,13 @@ public class BeneficiaryByUserDTO {
     private String fullnameBenefeciary;
     private int ageBeneficiary;
     private String observationsBeneficiary;
+    private boolean isActive = true;
+    public boolean isActive() {
+        return isActive;
+    }
+    public void setActive(boolean active) {
+        isActive = active;
+    }
 
     public int getIdBeneficiary() {
         return idBeneficiary;

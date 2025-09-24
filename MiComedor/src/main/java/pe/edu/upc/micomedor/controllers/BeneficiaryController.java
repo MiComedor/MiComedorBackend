@@ -69,6 +69,7 @@ public class BeneficiaryController {
             dto.setFullnameBenefeciary(beneficiary.getFullnameBenefeciary());
             dto.setAgeBeneficiary(beneficiary.getAgeBeneficiary());
             dto.setObservationsBeneficiary(beneficiary.getObservationsBeneficiary());
+            dto.setActive(beneficiary.getIsActive());
             resultado.add(dto);
         }
         return resultado;
