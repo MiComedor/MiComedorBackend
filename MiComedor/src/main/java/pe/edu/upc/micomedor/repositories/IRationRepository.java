@@ -10,7 +10,10 @@ import pe.edu.upc.micomedor.entities.Ration;
 
 @Repository
 public interface IRationRepository extends JpaRepository<Ration, Integer> {
-    @Query(value = "select * from ration where user_id = :idUser", nativeQuery = true)
+    @Query(value = "select r.* \n" +
+            "from ration r \n" +
+            "join beneficiary b on b.id_beneficiary = r.beneficiary_id\n" +
+            "where r.user_id = :idUser", nativeQuery = true)
     List<Ration> findRationByUserId(@Param("idUser") int idUser);
 
     @Query(value = "SELECT COUNT(*) AS total_raciones_hoy FROM ration WHERE date = CURRENT_DATE AND user_id =  :idUser", nativeQuery = true)
