@@ -2,7 +2,7 @@ package pe.edu.upc.micomedor.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.http.ResponseEntity; // <-- NUEVO
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.micomedor.dtos.UserDTO;
 import pe.edu.upc.micomedor.entities.Users;
@@ -16,16 +16,25 @@ import java.util.stream.Collectors;
 public class UserController {
     @Autowired
     private IUserService uS;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+
     @PostMapping
-    public void registrar(@RequestBody UserDTO dto) {
-        ModelMapper m = new ModelMapper();
-        Users u = m.map(dto, Users.class);
-        String encodedPassword = passwordEncoder.encode(u.getPassword());
-        u.setPassword(encodedPassword);
-        uS.insert(u);
+    public ResponseEntity<?> registrar(@RequestBody UserDTO dto) { // <-- CAMBIO: ahora devuelve ResponseEntity
+        try {
+            ModelMapper m = new ModelMapper();
+            Users u = m.map(dto, Users.class);
+
+            // ELIMINADO: encriptar aquí. Se hace en el servicio ahora.
+            // String encodedPassword = passwordEncoder.encode(u.getPassword());
+            // u.setPassword(encodedPassword);
+
+            uS.insert(u); // validación y encriptado ocurren dentro del servicio
+            return ResponseEntity.ok("Usuario registrado correctamente.");
+        } catch (IllegalArgumentException e) {
+            // NUEVO: si no cumple la política de contraseña, devolvemos 400 con mensaje entendible
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
+
     @GetMapping
     public List<UserDTO> mencionar(){
         return uS.list().stream().map(y->{
@@ -43,6 +52,7 @@ public class UserController {
         Users u = m.map(dto, Users.class);
         uS.insert(u);
     }
+
     @GetMapping("/{id}")
     public UserDTO listarId(@PathVariable("id") Integer id) {
         ModelMapper m = new ModelMapper();
