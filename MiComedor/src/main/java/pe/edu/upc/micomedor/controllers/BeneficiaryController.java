@@ -56,7 +56,6 @@ public class BeneficiaryController {
         Beneficiary beneficiary = ibS.listId(id);
         return m.map(beneficiary, BeneficiaryDTO.class);
     }
-
     @GetMapping("/beneficiarioPorUsuario/{idUser}")
     public List<BeneficiaryByUserDTO> obtenerListaBeneficiariosPorUsuario(@PathVariable int idUser) {
         List<Beneficiary> beneficiaries = ibS.findActiveByUserId(idUser);
@@ -74,5 +73,21 @@ public class BeneficiaryController {
         }
         return resultado;
     }
+    @GetMapping("/beneficiarioPorUsuarioGeneral/{idUser}")
+    public List<BeneficiaryByUserDTO> obtenerListaBeneficiariosPorUsuarioGeneral(@PathVariable int idUser) {
+        List<Beneficiary> beneficiaries = ibS.findBeneficiaryByUserId(idUser);
+        List<BeneficiaryByUserDTO> resultado = new ArrayList<>();
 
+        for (Beneficiary beneficiary : beneficiaries) {
+            BeneficiaryByUserDTO dto = new BeneficiaryByUserDTO();
+            dto.setIdBeneficiary(beneficiary.getIdBeneficiary());
+            dto.setDniBenefeciary(beneficiary.getDniBenefeciary());
+            dto.setFullnameBenefeciary(beneficiary.getFullnameBenefeciary());
+            dto.setAgeBeneficiary(beneficiary.getAgeBeneficiary());
+            dto.setObservationsBeneficiary(beneficiary.getObservationsBeneficiary());
+            dto.setActive(beneficiary.getIsActive());
+            resultado.add(dto);
+        }
+        return resultado;
+    }
 }
