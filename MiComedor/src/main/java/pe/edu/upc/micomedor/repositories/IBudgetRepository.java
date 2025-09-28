@@ -5,7 +5,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import pe.edu.upc.micomedor.entities.Budget;
+
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface IBudgetRepository extends JpaRepository<Budget,Integer> {
@@ -63,6 +66,15 @@ public interface IBudgetRepository extends JpaRepository<Budget,Integer> {
     List<Object[]> PresupuestoPorSemana(@Param("idUser") int idUser);
     @Query("SELECT b FROM Budget b WHERE b.users.idUser = :idUser")
     List<Budget> findBudgetsByUserId(@Param("idUser") int idUser);
+
+    @Query("SELECT b FROM Budget b " +
+            "WHERE b.users.idUser = :idUser " +
+            "  AND b.dateBudget = :dateBudget " +
+            "  AND b.budgetCategory.idBudgetCategory = :categoryId")
+    Optional<Budget> findByUserDateAndCategory(@Param("idUser") int idUser,
+                                               @Param("dateBudget") LocalDate dateBudget,
+                                               @Param("categoryId") int categoryId);
+
 
 
 

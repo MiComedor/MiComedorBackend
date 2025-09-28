@@ -2,6 +2,7 @@ package pe.edu.upc.micomedor.servicesInterfaces;
 import org.springframework.data.repository.query.Param;
 import pe.edu.upc.micomedor.entities.Budget;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface IBudgetService {
@@ -13,4 +14,6 @@ public interface IBudgetService {
     List<Object[]> PresupuestoPorDia(int idUser);
     List<Object[]> PresupuestoPorSemana(int idUser);
     List<Budget> listByUser(int idUser);
+    void upsertDailyIncomeFromRations(int idUser, LocalDate date);
+
 }

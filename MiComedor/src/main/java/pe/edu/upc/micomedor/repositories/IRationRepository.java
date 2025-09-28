@@ -1,5 +1,6 @@
 package pe.edu.upc.micomedor.repositories;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -7,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import pe.edu.upc.micomedor.entities.Ration;
+
 
 @Repository
 public interface IRationRepository extends JpaRepository<Ration, Integer> {
@@ -67,4 +69,19 @@ public interface IRationRepository extends JpaRepository<Ration, Integer> {
             "GROUP BY d.dia\n" +
             "ORDER BY d.dia;\n", nativeQuery = true)
     List<Object[]> cantidadBeneficiarioPorSemana(@Param("idUser") int idUser);
+
+
+    // === NUEVO ===
+    // Suma del precio de raciones por usuario y fecha
+    @Query("SELECT COALESCE(SUM(r.price), 0) " +
+            "FROM Ration r " +
+            "WHERE r.users.idUser = :idUser AND r.date = :date")
+    Double sumPriceByUserAndDate(@Param("idUser") int idUser, @Param("date") LocalDate date);
+
+    // Conteo de raciones por usuario y fecha (para descripción)
+    @Query("SELECT COUNT(r) " +
+            "FROM Ration r " +
+            "WHERE r.users.idUser = :idUser AND r.date = :date")
+    Long countByUserAndDate(@Param("idUser") int idUser, @Param("date") LocalDate date);
+
 }
