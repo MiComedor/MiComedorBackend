@@ -19,4 +19,5 @@ public interface IBeneficiaryRepository extends JpaRepository<Beneficiary, Integ
     void deleteBeneficiaryActive(@Param("id") int id);
     @Query(value = "select * from beneficiary where is_active = true and user_id = :userId", nativeQuery = true)
     List<Beneficiary> findActiveByUserId(@Param("userId") int userId);
-}
+    @Query(value = "select * from beneficiary where user_id = :idUser and dni_benefeciary = :dniBenefiary", nativeQuery = true)
+    Beneficiary buscarBeneficiarioPorDni(@Param("idUser") int idUser, @Param("dniBenefiary") int dniBeneficiary);}

@@ -2,16 +2,17 @@ package pe.edu.upc.micomedor.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.micomedor.dtos.BeneficiaryByUserDTO;
 import pe.edu.upc.micomedor.dtos.BeneficiaryDTO;
-import pe.edu.upc.micomedor.dtos.RationByUserIdDTO;
 import pe.edu.upc.micomedor.entities.Beneficiary;
 import pe.edu.upc.micomedor.servicesInterfaces.IBeneficiaryService;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/beneficiary")
@@ -25,6 +26,68 @@ public class BeneficiaryController {
         Beneficiary b=m.map(beneficiaryDTO, Beneficiary.class);
         ibS.insert(b);
     }
+    @PostMapping("/saveConfirm")
+    public ResponseEntity<?> saveConfirm(@RequestBody BeneficiaryDTO beneficiaryDTO) {
+        ModelMapper m = new ModelMapper();
+        Beneficiary b = m.map(beneficiaryDTO, Beneficiary.class);
+
+        try {
+            Beneficiary saved = ibS.saveBenefiaryConfirm(b);
+            BeneficiaryDTO responseDTO = m.map(saved, BeneficiaryDTO.class);
+            return ResponseEntity.ok(Map.of(
+                    "status", 200,
+                    "message", "Beneficiary saved successfully",
+                    "beneficiary", responseDTO
+            ));
+        } catch (RuntimeException e) {
+            String msg = e.getMessage();
+
+            // Caso: beneficiario activo
+            if (msg.contains("active")) {
+                return ResponseEntity.badRequest().body(Map.of(
+                        "status", 400,
+                        "message", msg,
+                        "canReactivate", false
+                ));
+            }
+
+            // Caso: beneficiario inactivo
+            if (msg.contains("inactive")) {
+                return ResponseEntity.status(409).body(Map.of(
+                        "status", 409,
+                        "message", msg,
+                        "canReactivate", true
+                ));
+            }
+
+            // Cualquier otro error
+            return ResponseEntity.internalServerError().body(Map.of(
+                    "status", 500,
+                    "message", "Unexpected error: " + msg
+            ));
+        }
+    }
+    @PutMapping("/reactivate/{userId}/{dni}")
+    public ResponseEntity<?> reactivate(@PathVariable int userId, @PathVariable int dni) {
+        Beneficiary existing = ibS.findByUserIdAndDni(userId, dni);
+
+        if (existing == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        if (existing.getIsActive()) {
+            return ResponseEntity.badRequest().body("Beneficiary is already active.");
+        }
+
+        existing.setIsActive(true);
+        ibS.insert(existing); // usa insert o update
+
+        return ResponseEntity.ok(Map.of(
+                "message", "Beneficiary reactivated successfully",
+                "beneficiary", existing
+        ));
+    }
+
 
     @GetMapping
     public List<BeneficiaryDTO> listar(){

@@ -13,4 +13,7 @@ public interface IBeneficiaryService {
     List<Beneficiary> findBeneficiaryByUserId(int idUser);
     public void deleteBeneficiaryActive(int id);
     List<Beneficiary> findActiveByUserId(int userId);
+    Beneficiary saveBenefiaryConfirm(Beneficiary beneficiary);
+    Beneficiary findByUserIdAndDni(int userId, int dni);
+
 }

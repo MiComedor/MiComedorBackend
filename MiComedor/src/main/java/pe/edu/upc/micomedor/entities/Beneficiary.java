@@ -10,7 +10,7 @@ public class Beneficiary implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idBeneficiary;
-    @Column(name = "dniBenefeciary", nullable = false)
+    @Column(name = "dniBenefeciary", nullable = false, unique = true)
     private int dniBenefeciary;
     @Column(name = "fullnameBenefeciary", nullable = false, length = 50)
     private String fullnameBenefeciary;

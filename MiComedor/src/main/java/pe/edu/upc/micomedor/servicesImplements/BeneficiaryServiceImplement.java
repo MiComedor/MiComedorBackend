@@ -47,5 +47,27 @@ public class BeneficiaryServiceImplement implements IBeneficiaryService {
     public List <Beneficiary> findActiveByUserId(int userId) {
         return bR.findActiveByUserId(userId);
     }
+    @Override
+    public Beneficiary saveBenefiaryConfirm(Beneficiary beneficiary) {
+        int userId = beneficiary.getUsers().getIdUser();
+        int dni = beneficiary.getDniBenefeciary();
+
+        Beneficiary existing = bR.buscarBeneficiarioPorDni(userId, dni);
+
+        if (existing != null) {
+            if (existing.getIsActive()) {
+                // Caso duplicado activo
+                throw new RuntimeException("This beneficiary already exists for this user and is active.");
+            } else {
+                // Caso duplicado inactivo → lanzar excepción para que el controller pregunte si desea reactivar
+                throw new RuntimeException("This beneficiary already exists but is inactive. Reactivate?");
+            }
+        }
+        return bR.save(beneficiary);
+    }
+    @Override
+    public Beneficiary findByUserIdAndDni(int userId, int dni) {
+        return bR.buscarBeneficiarioPorDni(userId, dni);
+    }
 
 }
