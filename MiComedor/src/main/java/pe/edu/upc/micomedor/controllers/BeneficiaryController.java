@@ -42,21 +42,23 @@ public class BeneficiaryController {
         } catch (RuntimeException e) {
             String msg = e.getMessage();
 
-            // Caso: beneficiario activo
+            // IMPORTANTE: Primero verificar caso inactivo (409) antes que activo (400)
+            // porque "inactive" debe tener prioridad sobre "active"
+            if (msg.contains("inactive")) {
+                // Caso: beneficiario inactivo - retorna 409 Conflict
+                return ResponseEntity.status(409).body(Map.of(
+                        "status", 409,
+                        "message", msg,
+                        "canReactivate", true
+                ));
+            }
+
+            // Caso: beneficiario activo - retorna 400 Bad Request
             if (msg.contains("active")) {
                 return ResponseEntity.badRequest().body(Map.of(
                         "status", 400,
                         "message", msg,
                         "canReactivate", false
-                ));
-            }
-
-            // Caso: beneficiario inactivo
-            if (msg.contains("inactive")) {
-                return ResponseEntity.status(409).body(Map.of(
-                        "status", 409,
-                        "message", msg,
-                        "canReactivate", true
                 ));
             }
 

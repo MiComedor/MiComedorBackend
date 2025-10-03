@@ -56,11 +56,11 @@ public class BeneficiaryServiceImplement implements IBeneficiaryService {
 
         if (existing != null) {
             if (existing.getIsActive()) {
-                // Caso duplicado activo
-                throw new RuntimeException("This beneficiary already exists for this user and is active.");
+                // Caso duplicado activo - Palabra clave "active" para identificar en el controller
+                throw new RuntimeException("Beneficiary is active: This beneficiary already exists for this user and is active.");
             } else {
-                // Caso duplicado inactivo → lanzar excepción para que el controller pregunte si desea reactivar
-                throw new RuntimeException("This beneficiary already exists but is inactive. Reactivate?");
+                // Caso duplicado inactivo - Palabra clave "inactive" para identificar en el controller
+                throw new RuntimeException("Beneficiary is inactive: This beneficiary already exists but is inactive. Reactivate?");
             }
         }
         return bR.save(beneficiary);
