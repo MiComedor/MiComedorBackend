@@ -1,7 +1,6 @@
 package pe.edu.upc.micomedor.entities;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
 
 @Entity
@@ -10,23 +9,30 @@ public class Budget {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idBudget;
+
     @Column(name = "descriptionBudget", nullable = false, length = 50)
     private String descriptionProduct;
+
     @Column(name = "amountBudget", nullable = false)
     private float amountBudget;
-    @Column(name = "dateBudget", nullable = false)
+
+    // ⭐ CAMBIO: forzamos a que se guarde solo la FECHA (sin hora)
+    @Column(name = "dateBudget", nullable = false, columnDefinition = "DATE")
     private LocalDate dateBudget;
+
     @ManyToOne
     @JoinColumn(name = "User_id")
     private Users users;
+
     @ManyToOne
     @JoinColumn(name = "budgetCategory_id")
-    private BudgetCategory  budgetCategory;
+    private BudgetCategory budgetCategory;
 
     public Budget() {
     }
 
-    public Budget(int idBudget, String descriptionProduct, float amountBudget, LocalDate dateBudget, Users users, BudgetCategory budgetCategory) {
+    public Budget(int idBudget, String descriptionProduct, float amountBudget,
+                  LocalDate dateBudget, Users users, BudgetCategory budgetCategory) {
         this.idBudget = idBudget;
         this.descriptionProduct = descriptionProduct;
         this.amountBudget = amountBudget;

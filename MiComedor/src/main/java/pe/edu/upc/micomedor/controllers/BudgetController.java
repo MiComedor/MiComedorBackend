@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.micomedor.dtos.BudgetDTO;
 import pe.edu.upc.micomedor.dtos.PresupuestoPorDiaDTO;
-
 import pe.edu.upc.micomedor.dtos.PresupuestoPorSemanaDTO;
 import pe.edu.upc.micomedor.entities.Budget;
 import pe.edu.upc.micomedor.servicesInterfaces.IBudgetService;
@@ -25,6 +24,8 @@ public class BudgetController {
     public void insertar(@RequestBody BudgetDTO budgetDTO){
         ModelMapper m=new ModelMapper();
         Budget b=m.map(budgetDTO, Budget.class);
+        // ⭐ CAMBIO: nos aseguramos que LocalDate llegue bien parseado
+        // (en BudgetDTO debes anotar el campo fecha con @JsonFormat)
         bS.insert(b);
     }
 
@@ -43,7 +44,7 @@ public class BudgetController {
     public void update(@RequestBody BudgetDTO dto) {
         ModelMapper m = new ModelMapper();
         Budget b = m.map(dto, Budget.class);
-        bS.insert(b);
+        bS.update(b); // ⭐ CAMBIO: antes llamabas a insert(), ahora a update()
     }
 
     @GetMapping("/usuario/{idUser}")
@@ -53,7 +54,6 @@ public class BudgetController {
             return m.map(budget, BudgetDTO.class);
         }).collect(Collectors.toList());
     }
-
 
     @GetMapping("/{id}")
     public BudgetDTO listById(@PathVariable("id") int id) {
@@ -82,7 +82,6 @@ public class BudgetController {
         return dtoLista;
     }
 
-
     @GetMapping("/reportePresupuestoPorSemana/{idUser}")
     public List<PresupuestoPorSemanaDTO> obtenerPresupuestoPorSemana(@PathVariable int idUser) {
         List<Object[]> filaLista = bS.PresupuestoPorSemana(idUser);
@@ -105,11 +104,12 @@ public class BudgetController {
         return dtoLista;
     }
 
-
     @GetMapping("/debug/fecha-peru")
     public String fechaActualPeru() {
-        java.time.LocalDate fechaPeru = java.time.ZonedDateTime.now(java.time.ZoneId.of("America/Lima")).toLocalDate();
+        // ⭐ CAMBIO: mostramos la fecha local exacta en Lima para debug
+        java.time.LocalDate fechaPeru = java.time.ZonedDateTime
+                .now(java.time.ZoneId.of("America/Lima"))
+                .toLocalDate();
         return ">>> Fecha actual en Perú: " + fechaPeru;
     }
-
 }
