@@ -53,7 +53,6 @@ public class BeneficiaryController {
                 ));
             }
 
-            // Caso: beneficiario activo - retorna 400 Bad Request
             if (msg.contains("active")) {
                 return ResponseEntity.badRequest().body(Map.of(
                         "status", 400,
