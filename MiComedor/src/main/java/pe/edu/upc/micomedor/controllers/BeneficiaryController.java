@@ -81,7 +81,7 @@ public class BeneficiaryController {
         }
 
         existing.setIsActive(true);
-        ibS.insert(existing); // usa insert o update
+        ibS.insert(existing); 
 
         return ResponseEntity.ok(Map.of(
                 "message", "Beneficiary reactivated successfully",
