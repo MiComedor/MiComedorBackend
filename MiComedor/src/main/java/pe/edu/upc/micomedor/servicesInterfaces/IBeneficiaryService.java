@@ -1,19 +1,20 @@
 package pe.edu.upc.micomedor.servicesInterfaces;
 
-import org.springframework.data.repository.query.Param;
 import pe.edu.upc.micomedor.entities.Beneficiary;
 import java.util.List;
 
 public interface IBeneficiaryService {
-    public void insert(Beneficiary beneficiary);
-    public void delete(int idBeneficiary);
-    public Beneficiary listId(int idBeneficiary);
-    public List<Beneficiary> list();
-    public void update(Beneficiary beneficiary);
+    void insert(Beneficiary beneficiary);
+    void delete(int idBeneficiary);
+    Beneficiary listId(int idBeneficiary);
+    List<Beneficiary> list();
+    void update(Beneficiary beneficiary);
     List<Beneficiary> findBeneficiaryByUserId(int idUser);
-    public void deleteBeneficiaryActive(int id);
+    void deleteBeneficiaryActive(int id);
     List<Beneficiary> findActiveByUserId(int userId);
     Beneficiary saveBenefiaryConfirm(Beneficiary beneficiary);
     Beneficiary findByUserIdAndDni(int userId, int dni);
 
+    // 💡 ADDED: update con validación de unicidad y manejo de conflicto
+    Beneficiary updateWithConflictCheck(Beneficiary beneficiary);
 }

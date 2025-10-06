@@ -2,6 +2,7 @@ package pe.edu.upc.micomedor.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.micomedor.dtos.BeneficiaryByUserDTO;
@@ -11,8 +12,8 @@ import pe.edu.upc.micomedor.servicesInterfaces.IBeneficiaryService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/beneficiary")
@@ -26,6 +27,7 @@ public class BeneficiaryController {
         Beneficiary b=m.map(beneficiaryDTO, Beneficiary.class);
         ibS.insert(b);
     }
+
     @PostMapping("/saveConfirm")
     public ResponseEntity<?> saveConfirm(@RequestBody BeneficiaryDTO beneficiaryDTO) {
         ModelMapper m = new ModelMapper();
@@ -42,10 +44,7 @@ public class BeneficiaryController {
         } catch (RuntimeException e) {
             String msg = e.getMessage();
 
-            // IMPORTANTE: Primero verificar caso inactivo (409) antes que activo (400)
-            // porque "inactive" debe tener prioridad sobre "active"
             if (msg.contains("inactive")) {
-                // Caso: beneficiario inactivo - retorna 409 Conflict
                 return ResponseEntity.status(409).body(Map.of(
                         "status", 409,
                         "message", msg,
@@ -61,13 +60,13 @@ public class BeneficiaryController {
                 ));
             }
 
-            // Cualquier otro error
             return ResponseEntity.internalServerError().body(Map.of(
                     "status", 500,
                     "message", "Unexpected error: " + msg
             ));
         }
     }
+
     @PutMapping("/reactivate/{userId}/{dni}")
     public ResponseEntity<?> reactivate(@PathVariable int userId, @PathVariable int dni) {
         Beneficiary existing = ibS.findByUserIdAndDni(userId, dni);
@@ -81,14 +80,13 @@ public class BeneficiaryController {
         }
 
         existing.setIsActive(true);
-        ibS.insert(existing); 
+        ibS.insert(existing);
 
         return ResponseEntity.ok(Map.of(
                 "message", "Beneficiary reactivated successfully",
                 "beneficiary", existing
         ));
     }
-
 
     @GetMapping
     public List<BeneficiaryDTO> listar(){
@@ -101,17 +99,26 @@ public class BeneficiaryController {
     @PutMapping("/deleteActive/{id}")
     public void eliminar(@PathVariable("id") Integer id){ ibS.deleteBeneficiaryActive(id);}
 
+    // ✅ CHANGE: devolver ResponseEntity y llamar a update con validación
     @PutMapping("/{id}")
-    public void update(@PathVariable("id") int id, @RequestBody BeneficiaryDTO dto) {
+    public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody BeneficiaryDTO dto) {
         ModelMapper m = new ModelMapper();
-        Beneficiary existing = ibS.listId(id); // obtener el actual desde DB
-        if (existing == null) return; // o lanza error
+        Beneficiary existing = ibS.listId(id);
+        if (existing == null || existing.getIdBeneficiary() == 0) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("message", "Beneficiary not found"));
+        }
 
         Beneficiary updated = m.map(dto, Beneficiary.class);
         updated.setIdBeneficiary(id);
-        updated.setUsers(existing.getUsers()); // ⬅️ conserva el user actual
+        // Conserva el usuario del registro actual para no romper FKs
+        updated.setUsers(existing.getUsers());
 
-        ibS.insert(updated);
+        // 💡 ADDED: delega en un servicio que valida unicidad y guarda
+        Beneficiary saved = ibS.updateWithConflictCheck(updated);
+
+        BeneficiaryDTO response = m.map(saved, BeneficiaryDTO.class);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
@@ -120,6 +127,7 @@ public class BeneficiaryController {
         Beneficiary beneficiary = ibS.listId(id);
         return m.map(beneficiary, BeneficiaryDTO.class);
     }
+
     @GetMapping("/beneficiarioPorUsuario/{idUser}")
     public List<BeneficiaryByUserDTO> obtenerListaBeneficiariosPorUsuario(@PathVariable int idUser) {
         List<Beneficiary> beneficiaries = ibS.findActiveByUserId(idUser);
@@ -137,6 +145,7 @@ public class BeneficiaryController {
         }
         return resultado;
     }
+
     @GetMapping("/beneficiarioPorUsuarioGeneral/{idUser}")
     public List<BeneficiaryByUserDTO> obtenerListaBeneficiariosPorUsuarioGeneral(@PathVariable int idUser) {
         List<Beneficiary> beneficiaries = ibS.findBeneficiaryByUserId(idUser);
