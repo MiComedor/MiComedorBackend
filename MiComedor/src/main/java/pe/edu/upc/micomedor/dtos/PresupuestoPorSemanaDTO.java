@@ -4,9 +4,9 @@ public class PresupuestoPorSemanaDTO {
     private LocalDate Fecha;
     private String dia;
     private String fechasDiaMes;
-    private int ingresosPorDia;
-    private int egresosPorDia;
-    private int saldoPorDia;
+    private float ingresosPorDia;
+    private float egresosPorDia;
+    private float saldoPorDia;
 
     public LocalDate getFecha() {
         return Fecha;
@@ -32,27 +32,27 @@ public class PresupuestoPorSemanaDTO {
         this.fechasDiaMes = fechasDiaMes;
     }
 
-    public int getIngresosPorDia() {
-        return ingresosPorDia;
-    }
-
-    public void setIngresosPorDia(int ingresosPorDia) {
-        this.ingresosPorDia = ingresosPorDia;
-    }
-
-    public int getEgresosPorDia() {
-        return egresosPorDia;
-    }
-
-    public void setEgresosPorDia(int egresosPorDia) {
-        this.egresosPorDia = egresosPorDia;
-    }
-
-    public int getSaldoPorDia() {
+    public float getSaldoPorDia() {
         return saldoPorDia;
     }
 
-    public void setSaldoPorDia(int saldoPorDia) {
+    public void setSaldoPorDia(float saldoPorDia) {
         this.saldoPorDia = saldoPorDia;
+    }
+
+    public float getEgresosPorDia() {
+        return egresosPorDia;
+    }
+
+    public void setEgresosPorDia(float egresosPorDia) {
+        this.egresosPorDia = egresosPorDia;
+    }
+
+    public float getIngresosPorDia() {
+        return ingresosPorDia;
+    }
+
+    public void setIngresosPorDia(float ingresosPorDia) {
+        this.ingresosPorDia = ingresosPorDia;
     }
 }

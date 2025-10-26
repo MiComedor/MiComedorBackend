@@ -44,7 +44,7 @@ public class BudgetController {
     public void update(@RequestBody BudgetDTO dto) {
         ModelMapper m = new ModelMapper();
         Budget b = m.map(dto, Budget.class);
-        bS.update(b); // ⭐ CAMBIO: antes llamabas a insert(), ahora a update()
+        bS.update(b); //  CAMBIO: antes llamabas a insert(), ahora a update()
     }
 
     @GetMapping("/usuario/{idUser}")
@@ -72,9 +72,10 @@ public class BudgetController {
         for (Object[] fila : filaLista) {
             PresupuestoPorDiaDTO dto = new PresupuestoPorDiaDTO();
 
-            dto.setIngresosHoy(fila[0] != null ? ((Number) fila[0]).intValue() : 0);
-            dto.setEgresosHoy(fila[1] != null ? ((Number) fila[1]).intValue() : 0);
-            dto.setSaldoFinal(fila[2] != null ? ((Number) fila[2]).intValue() : 0);
+            // Cambiado de intValue() a floatValue() para preservar decimales
+            dto.setIngresosHoy(fila[0] != null ? ((Number) fila[0]).floatValue() : 0.0f);
+            dto.setEgresosHoy(fila[1] != null ? ((Number) fila[1]).floatValue() : 0.0f);
+            dto.setSaldoFinal(fila[2] != null ? ((Number) fila[2]).floatValue() : 0.0f);
 
             dtoLista.add(dto);
         }
@@ -95,9 +96,9 @@ public class BudgetController {
             }
             dto.setDia(fila[1] != null ? (String) fila[1] : "");
             dto.setFechasDiaMes(fila[2] != null ? (String) fila[2] : "");
-            dto.setIngresosPorDia(fila[3] != null ? ((Number) fila[3]).intValue() : 0);
-            dto.setEgresosPorDia(fila[4] != null ? ((Number) fila[4]).intValue() : 0);
-            dto.setSaldoPorDia(fila[5] != null ? ((Number) fila[5]).intValue() : 0);
+            dto.setIngresosPorDia(fila[3] != null ? ((Number) fila[3]).floatValue(): 0);
+            dto.setEgresosPorDia(fila[4] != null ? ((Number) fila[4]).floatValue() : 0);
+            dto.setSaldoPorDia(fila[5] != null ? ((Number) fila[5]).floatValue() : 0);
 
             dtoLista.add(dto);
         }
@@ -106,7 +107,7 @@ public class BudgetController {
 
     @GetMapping("/debug/fecha-peru")
     public String fechaActualPeru() {
-        // ⭐ CAMBIO: mostramos la fecha local exacta en Lima para debug
+        //  CAMBIO: mostramos la fecha local exacta en Lima para debug
         java.time.LocalDate fechaPeru = java.time.ZonedDateTime
                 .now(java.time.ZoneId.of("America/Lima"))
                 .toLocalDate();

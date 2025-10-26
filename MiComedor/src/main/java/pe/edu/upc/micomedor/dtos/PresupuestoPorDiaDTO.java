@@ -1,31 +1,31 @@
 package pe.edu.upc.micomedor.dtos;
 
 public class PresupuestoPorDiaDTO {
-    private int ingresosHoy;
-    private int egresosHoy;
-    private int saldoFinal;
+    private float ingresosHoy;
+    private float egresosHoy;
+    private float saldoFinal;
 
-    public int getIngresosHoy() {
-        return ingresosHoy;
-    }
-
-    public void setIngresosHoy(int ingresosHoy) {
-        this.ingresosHoy = ingresosHoy;
-    }
-
-    public int getEgresosHoy() {
-        return egresosHoy;
-    }
-
-    public void setEgresosHoy(int egresosHoy) {
-        this.egresosHoy = egresosHoy;
-    }
-
-    public int getSaldoFinal() {
+    public float getSaldoFinal() {
         return saldoFinal;
     }
 
-    public void setSaldoFinal(int saldoFinal) {
+    public void setSaldoFinal(float saldoFinal) {
         this.saldoFinal = saldoFinal;
+    }
+
+    public float getEgresosHoy() {
+        return egresosHoy;
+    }
+
+    public void setEgresosHoy(float egresosHoy) {
+        this.egresosHoy = egresosHoy;
+    }
+
+    public float getIngresosHoy() {
+        return ingresosHoy;
+    }
+
+    public void setIngresosHoy(float ingresosHoy) {
+        this.ingresosHoy = ingresosHoy;
     }
 }
