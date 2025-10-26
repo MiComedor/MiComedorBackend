@@ -67,13 +67,16 @@ public interface IBudgetRepository extends JpaRepository<Budget,Integer> {
     @Query("SELECT b FROM Budget b WHERE b.users.idUser = :idUser")
     List<Budget> findBudgetsByUserId(@Param("idUser") int idUser);
 
-    @Query("SELECT b FROM Budget b " +
-            "WHERE b.users.idUser = :idUser " +
-            "  AND b.dateBudget = :dateBudget " +
-            "  AND b.budgetCategory.idBudgetCategory = :categoryId")
-    Optional<Budget> findByUserDateAndCategory(@Param("idUser") int idUser,
-                                               @Param("dateBudget") LocalDate dateBudget,
-                                               @Param("categoryId") int categoryId);
+    @Query("""
+        select b
+        from Budget b
+        where b.users.idUser = :idUser
+          and b.dateBudget = :date
+          and b.budgetCategory.idBudgetCategory = :categoryId
+    """)
+    List<Budget> findAllByUserDateAndCategory(@Param("idUser") int idUser,
+                                              @Param("date") LocalDate date,
+                                              @Param("categoryId") int categoryId);
 
 
 

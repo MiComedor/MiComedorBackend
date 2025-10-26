@@ -72,23 +72,36 @@ public class BudgetServiceImplement implements IBudgetService {
     @Transactional
     public void upsertDailyIncomeFromRations(int idUser, LocalDate date) {
         // 1) Calcular suma de precios y cantidad de raciones del día
-        Double total = rR.sumPriceByUserAndDate(idUser, date);
+        //    sumPriceByUserAndDate puede devolver BigDecimal/Double/Float/NULL según el query
+        Number total = rR.sumPriceByUserAndDate(idUser, date);
         long cantidad = Optional.ofNullable(rR.countByUserAndDate(idUser, date)).orElse(0L);
-        float totalFloat = total != null ? total.floatValue() : 0f;
+        float totalFloat = (total != null) ? total.floatValue() : 0f;
 
-        // 2) Buscar si ya existe un registro de budget (categoría Ingreso) para ese usuario/fecha
-        Optional<Budget> opt = bR.findByUserDateAndCategory(idUser, date, INCOME_CATEGORY_ID);
+        // 2) Traer TODOS los budgets (por si existen duplicados) para (user, date, INCOME_CATEGORY_ID)
+        List<Budget> budgets = bR.findAllByUserDateAndCategory(idUser, date, INCOME_CATEGORY_ID);
 
-        // Si no hay raciones o total = 0 => eliminar el registro existente (si lo hay)
+        // Si no hay raciones o total = 0 => eliminar cualquier registro existente y salir
         if (totalFloat <= 0f || cantidad == 0L) {
-            opt.ifPresent(budget -> bR.deleteById(budget.getIdBudget()));
+            if (!budgets.isEmpty()) {
+                // Elimina todos los duplicados existentes
+                budgets.forEach(b -> bR.deleteById(b.getIdBudget()));
+            }
             return;
         }
 
-        // 3) Crear/actualizar Budget
-        Budget budget = opt.orElseGet(Budget::new);
+        // 3) Crear/actualizar Budget (consolidando duplicados si existen)
+        Budget budget;
+        if (budgets.isEmpty()) {
+            budget = new Budget();
+        } else {
+            budget = budgets.get(0);  // conservamos el primero
+            // si hubiesen duplicados, los eliminamos
+            for (int i = 1; i < budgets.size(); i++) {
+                bR.deleteById(budgets.get(i).getIdBudget());
+            }
+        }
 
-        // Setear entidades por ID (sin necesidad de cargar la fila completa)
+        // Setear entidades por ID (sin necesidad de cargar toda la fila)
         Users u = new Users();
         u.setIdUser(idUser);
 
@@ -99,11 +112,10 @@ public class BudgetServiceImplement implements IBudgetService {
         budget.setBudgetCategory(cat);
         budget.setDateBudget(date);
         budget.setAmountBudget(totalFloat);
-
-        // Descripción amigable
         budget.setDescriptionProduct("Ingresos por raciones del día (" + cantidad + " raciones)");
 
         // 4) Guardar
         bR.save(budget);
     }
+
 }

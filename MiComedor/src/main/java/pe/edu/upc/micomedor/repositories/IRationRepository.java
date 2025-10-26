@@ -76,7 +76,7 @@ public interface IRationRepository extends JpaRepository<Ration, Integer> {
     @Query("SELECT COALESCE(SUM(r.price), 0) " +
             "FROM Ration r " +
             "WHERE r.users.idUser = :idUser AND r.date = :date")
-    Double sumPriceByUserAndDate(@Param("idUser") int idUser, @Param("date") LocalDate date);
+    Float sumPriceByUserAndDate(@Param("idUser") int idUser, @Param("date") LocalDate date);
 
     // Conteo de raciones por usuario y fecha (para descripción)
     @Query("SELECT COUNT(r) " +
