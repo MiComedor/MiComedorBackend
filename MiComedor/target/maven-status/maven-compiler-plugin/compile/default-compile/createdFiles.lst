@@ -7,6 +7,7 @@ pe\edu\upc\micomedor\repositories\IBudgetCategoryRepository.class
 pe\edu\upc\micomedor\controllers\ProductController.class
 pe\edu\upc\micomedor\securities\JwtRequest.class
 pe\edu\upc\micomedor\securities\WebSecurityConfig.class
+pe\edu\upc\micomedor\util\PasswordValidator.class
 pe\edu\upc\micomedor\controllers\RationTypeController.class
 pe\edu\upc\micomedor\controllers\UploadImageProductController.class
 pe\edu\upc\micomedor\securities\JwtAuthenticationEntryPoint.class
@@ -32,6 +33,7 @@ pe\edu\upc\micomedor\servicesInterfaces\IRationTypeService.class
 pe\edu\upc\micomedor\dtos\UnitOfMeasurementDTO.class
 pe\edu\upc\micomedor\repositories\IBeneficiaryRepository.class
 pe\edu\upc\micomedor\securities\JwtResponse.class
+pe\edu\upc\micomedor\controllers\ApiExceptionHandler.class
 pe\edu\upc\micomedor\repositories\INoteRespository.class
 pe\edu\upc\micomedor\servicesInterfaces\IUnitOfMeasurementService.class
 pe\edu\upc\micomedor\config\DataLoader.class

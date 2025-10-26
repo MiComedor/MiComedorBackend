@@ -1,4 +1,5 @@
 C:\Users\ESMERALDA\Documents\GitHub\MiComedorBackend\MiComedor\src\main\java\pe\edu\upc\micomedor\config\DataLoader.java
+C:\Users\ESMERALDA\Documents\GitHub\MiComedorBackend\MiComedor\src\main\java\pe\edu\upc\micomedor\controllers\ApiExceptionHandler.java
 C:\Users\ESMERALDA\Documents\GitHub\MiComedorBackend\MiComedor\src\main\java\pe\edu\upc\micomedor\controllers\BeneficiaryController.java
 C:\Users\ESMERALDA\Documents\GitHub\MiComedorBackend\MiComedor\src\main\java\pe\edu\upc\micomedor\controllers\BudgetCategoryController.java
 C:\Users\ESMERALDA\Documents\GitHub\MiComedorBackend\MiComedor\src\main\java\pe\edu\upc\micomedor\controllers\BudgetController.java
@@ -97,3 +98,4 @@ C:\Users\ESMERALDA\Documents\GitHub\MiComedorBackend\MiComedor\src\main\java\pe\
 C:\Users\ESMERALDA\Documents\GitHub\MiComedorBackend\MiComedor\src\main\java\pe\edu\upc\micomedor\servicesInterfaces\IUploadImageProductService.java
 C:\Users\ESMERALDA\Documents\GitHub\MiComedorBackend\MiComedor\src\main\java\pe\edu\upc\micomedor\servicesInterfaces\IUserService.java
 C:\Users\ESMERALDA\Documents\GitHub\MiComedorBackend\MiComedor\src\main\java\pe\edu\upc\micomedor\util\CORS.java
+C:\Users\ESMERALDA\Documents\GitHub\MiComedorBackend\MiComedor\src\main\java\pe\edu\upc\micomedor\util\PasswordValidator.java
